@@ -1,0 +1,182 @@
+import type { StaticImageData } from "next/image";
+import friedRiceTray from "@/public/images/fried-rice-tray.jpg";
+import jollofBowl from "@/public/images/jollof-bowl.jpg";
+import plainRiceChicken from "@/public/images/plain-rice-chicken.jpg";
+
+/**
+ * Menu and prices, copied from the official Golden Bite menu flyer (design/menu-flyer.jpeg).
+ * Prices are in Ghana cedis. Each price is a portion size the customer can pick.
+ */
+
+export type MenuItem = {
+  id: string;
+  name: string;
+  description: string;
+  prices: number[];
+};
+
+export type MenuFamily = {
+  id: string;
+  name: string;
+  description: string;
+  /** Interim photo cropped from the flyers. null = branded placeholder until real photos arrive. */
+  image: StaticImageData | null;
+  imageAlt: string;
+  items: MenuItem[];
+};
+
+export const menu: MenuFamily[] = [
+  {
+    id: "jollof",
+    name: "Jollof",
+    description:
+      "Choose your favourite jollof plate, then select the portion that suits your hunger.",
+    image: jollofBowl,
+    imageAlt: "Bowl of jollof rice topped with chicken",
+    items: [
+      {
+        id: "jollof-chicken",
+        name: "Jollof Rice & Chicken",
+        description: "Jollof rice served with chicken.",
+        prices: [40, 50, 60, 70, 80, 100],
+      },
+      {
+        id: "assorted-jollof",
+        name: "Assorted Jollof with Chicken",
+        description: "Assorted jollof served with chicken.",
+        prices: [60, 80, 100, 150, 200],
+      },
+      {
+        id: "jollof-redfish",
+        name: "Jollof & Redfish",
+        description: "Jollof rice paired with redfish.",
+        prices: [60, 70, 80, 100],
+      },
+      {
+        id: "jollof-turkey",
+        name: "Jollof & Turkey",
+        description: "Jollof rice served with peppered turkey.",
+        prices: [60, 80, 100],
+      },
+      {
+        id: "jollof-goat",
+        name: "Jollof & Goat",
+        description: "Jollof rice served with peppered goat.",
+        prices: [60, 80, 100],
+      },
+    ],
+  },
+  {
+    id: "plain-rice",
+    name: "Plain Rice",
+    description: "Simple, satisfying rice plates with your choice of chicken or fish.",
+    image: plainRiceChicken,
+    imageAlt: "Plate of white rice with a chicken leg",
+    items: [
+      {
+        id: "plain-rice-chicken",
+        name: "Plain Rice & Chicken",
+        description: "Plain rice served with chicken.",
+        prices: [30, 40, 50, 60, 80],
+      },
+      {
+        id: "plain-rice-fish",
+        name: "Plain Rice & Fish",
+        description: "Plain rice served with fish.",
+        prices: [50, 60, 80, 100],
+      },
+    ],
+  },
+  {
+    id: "fried-rice",
+    name: "Fried Rice",
+    description: "Fried-rice favourites, served with chicken, turkey or a generous assortment.",
+    image: friedRiceTray,
+    imageAlt: "Tray of fried rice with vegetables and chicken",
+    items: [
+      {
+        id: "fried-rice-chicken",
+        name: "Fried Rice & Chicken",
+        description: "Fried rice served with chicken.",
+        prices: [30, 40, 60, 70, 80, 100],
+      },
+      {
+        id: "fried-rice-turkey",
+        name: "Fried Rice & Turkey",
+        description: "Fried rice served with peppered turkey.",
+        prices: [60, 80, 100],
+      },
+      {
+        id: "assorted-fried-rice",
+        name: "Assorted Fried Rice with Chicken",
+        description: "Assorted fried rice served with chicken.",
+        prices: [60, 80, 100, 150, 200],
+      },
+    ],
+  },
+  {
+    id: "banku-tilapia",
+    name: "Banku & Tilapia",
+    description: "From a side of banku to tilapia platters, choose exactly what you want.",
+    image: null,
+    imageAlt: "",
+    items: [
+      {
+        id: "tilapia",
+        name: "Tilapia",
+        description: "Tilapia, prepared to order.",
+        prices: [40, 50, 60, 80, 100],
+      },
+      {
+        id: "tilapia-eggs",
+        name: "Tilapia & Fried Eggs",
+        description: "Tilapia served with fried eggs.",
+        prices: [60, 70, 80, 100],
+      },
+      {
+        id: "banku",
+        name: "Banku",
+        description: "A side of banku.",
+        prices: [5],
+      },
+    ],
+  },
+  {
+    id: "salads",
+    name: "Salads",
+    description: "Vegetable and chicken salads with eggs for a lighter Golden Bite choice.",
+    image: null,
+    imageAlt: "",
+    items: [
+      {
+        id: "vegetable-salad",
+        name: "Vegetable Salad with Eggs",
+        description: "Vegetable salad served with eggs.",
+        prices: [40, 50, 60],
+      },
+      {
+        id: "chicken-salad",
+        name: "Chicken Salad with Eggs",
+        description: "Chicken salad served with eggs.",
+        prices: [50, 60, 70],
+      },
+    ],
+  },
+  {
+    id: "food-baskets",
+    name: "Food Baskets",
+    description: "Food baskets made for sharing with family, friends, colleagues and guests.",
+    image: null,
+    imageAlt: "",
+    items: [
+      {
+        id: "food-basket",
+        name: "Food Basket",
+        description: "A shared food basket for the table.",
+        prices: [300, 350, 400, 450, 500, 600],
+      },
+    ],
+  },
+];
+
+export const allItems = menu.flatMap((family) => family.items);
