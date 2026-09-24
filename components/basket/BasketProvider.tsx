@@ -23,7 +23,10 @@ export function BasketProvider({ children }: { children: React.ReactNode }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [toast, setToast] = useState<{ id: number; text: string } | null>(null);
 
-  const openBasket = useCallback(() => dialogRef.current?.showModal(), []);
+  const openBasket = useCallback(() => {
+    setToast(null); // the basket itself now shows what was added
+    dialogRef.current?.showModal();
+  }, []);
 
   const add = useCallback((item: { id: string; name: string }, price: number) => {
     updateBasket((s) => ({ ...s, cart: addToCart(s.cart, item, price) }));

@@ -1073,13 +1073,14 @@ h1 em {
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
   gap: clamp(36px, 7vw, 98px);
-  align-items: center;
+  align-items: start;
   padding-top: 100px;
   padding-bottom: 100px;
 }
 .catering-image {
-  position: relative;
-  height: 420px;
+  position: sticky;
+  top: calc(var(--header-h) + 24px);
+  height: 520px;
   overflow: hidden;
   border-radius: 8px;
   box-shadow: var(--shadow);
@@ -1088,8 +1089,49 @@ h1 em {
 .catering-image img {
   object-fit: cover;
 }
-.catering-copy .button {
-  margin-top: 26px;
+/* Catering form: light variant of the checkout fields */
+.catering-form {
+  display: grid;
+  max-width: 520px;
+  margin-top: 22px;
+}
+.catering-form .field label {
+  color: #3f3526;
+}
+.catering-form .field input,
+.catering-form .field select,
+.catering-form .field textarea {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid #cdbfa9;
+  border-radius: 5px;
+  padding: 10px 12px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem;
+}
+.catering-form .field input::placeholder,
+.catering-form .field textarea::placeholder {
+  color: #857a69;
+}
+.catering-form .field input[aria-invalid="true"] {
+  border-color: #b3261e;
+}
+.catering-form .field-error {
+  color: #b3261e;
+}
+.catering-form .optional {
+  color: #6f604a;
+}
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.catering-form .button {
+  margin-top: 20px;
+  justify-self: start;
 }
 
 /* Footer */
@@ -1144,8 +1186,16 @@ footer a:hover {
 
 /* Tablet and phone: nav becomes a scrolling row, basket bar is always visible */
 @media (max-width: 900px) {
+  /* Header scrolls away on smaller screens; the bottom basket bar stays. */
   :root {
-    --header-h: 116px;
+    --header-h: 0px;
+  }
+  .site-header {
+    position: static;
+  }
+  .catering-image {
+    position: relative;
+    top: auto;
   }
   .header-inner {
     height: auto;
@@ -1236,8 +1286,9 @@ footer a:hover {
 }
 
 @media (max-width: 630px) {
-  :root {
-    --header-h: 108px;
+  .field-row {
+    grid-template-columns: 1fr;
+    gap: 0;
   }
   .announcement {
     min-height: 41px;
@@ -1379,4 +1430,33 @@ footer a:hover {
 
 .payment-section .eyebrow {
   color: #963a0b;
+}
+
+/* 404 page */
+.not-found {
+  min-height: 100vh;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 8px;
+  padding: 48px 20px;
+  background: var(--ink);
+  color: var(--cream);
+  text-align: center;
+}
+.not-found .eyebrow {
+  margin-top: 16px;
+  color: var(--gold-bright);
+}
+.not-found h1 {
+  font-size: clamp(2.8rem, 9vw, 5rem);
+}
+.not-found > p:not(.eyebrow) {
+  max-width: 420px;
+  margin-bottom: 24px;
+  color: #d7cfc1;
+  line-height: 1.6;
+}
+.not-found .hero-actions {
+  justify-content: center;
 }

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { business, telHref, whatsappHref } from "@/lib/business";
 import { BasketButton } from "./basket/MobileBasketBar";
+import { CateringForm } from "./CateringForm";
 import heroPlate from "@/public/images/hero-plate.jpg";
 import platterWide from "@/public/images/jollof-platter-wide.jpg";
 import logoHorizontal from "@/public/brand/logo-horizontal.png";
@@ -9,9 +10,6 @@ import logoStacked from "@/public/brand/logo-stacked.png";
 /** Server-rendered sections: they ship as HTML only, no JavaScript. */
 
 const [mainPhone, secondPhone] = business.phones;
-const cateringHref = whatsappHref(
-  "Hello Golden Bite! I would like to enquire about catering for an event.",
-);
 const generalHref = whatsappHref("Hello Golden Bite! I have a question.");
 
 export function Announcement() {
@@ -195,16 +193,10 @@ export function Catering() {
         <h2 id="catering-title">Let’s cater your next event.</h2>
         <p>
           From food baskets to crowd-pleasing rice dishes, Golden Bite is ready to make your
-          celebration, meeting or special occasion delicious.
+          celebration, meeting or special occasion delicious. Tell us about your event and we’ll
+          reply on WhatsApp with options and prices.
         </p>
-        <a
-          className="button button-primary"
-          href={cateringHref}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Enquire on WhatsApp <span aria-hidden="true">↗</span>
-        </a>
+        <CateringForm />
       </div>
     </section>
   );
@@ -225,9 +217,9 @@ export function Footer() {
           {business.address.locality}, Ghana
         </p>
         <p>
-          Monday–Saturday
+          {business.hours.longDays}
           <br />
-          11 AM–10 PM
+          {business.hours.shortTime}
         </p>
       </div>
       <div>

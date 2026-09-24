@@ -40,6 +40,7 @@ export const business = {
     opensAt: 11,
     closesAt: 22,
     label: "Monday–Saturday · 11 AM–10 PM",
+    longDays: "Monday–Saturday",
     shortDays: "Mon–Sat",
     shortTime: "11 AM–10 PM",
   },

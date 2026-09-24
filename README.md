@@ -45,12 +45,13 @@ The owner or an administrator receives and fulfils incoming orders. The first re
 
 ## Getting started
 
-Requires Node.js 20.9+ (22 recommended, see `.nvmrc`).
+Requires Node.js 20.9+ (22 recommended, see `.nvmrc`). Run `npx playwright install chromium` once before the browser tests.
 
 ```bash
 npm ci            # install exact versions from package-lock.json
 npm run dev       # http://localhost:3000
-npm run check     # lint + typecheck + tests + production build (same as CI)
+npm run check     # lint + typecheck + unit tests + production build (same as CI)
+npm run test:e2e  # browser tests of ordering, catering and 404 (phone + desktop)
 ```
 
 Copy `.env.example` to `.env.local` and set `NEXT_PUBLIC_SITE_URL` to the live domain before deploying. It is used for social previews, the sitemap and Google structured data.
@@ -64,18 +65,22 @@ app/
   globals.css           all styles
   icon.png, apple-icon.png, opengraph-image.jpg
   robots.ts, sitemap.ts
+  not-found.tsx         branded 404 page
 components/
   sections.tsx          header, hero, how-to-order, payment, catering, footer (server)
   menu/MenuSection.tsx  food families, meal cards, portion picker (client)
   basket/               basket store (localStorage), drawer, checkout form, toast
+  CateringForm.tsx      catering enquiry form → pre-filled WhatsApp (client)
   StructuredData.tsx    schema.org Restaurant + menu JSON-LD
 lib/
   business.ts           phones, MoMo, hours, address: edit business details here
   menu.ts               menu items and prices: edit the menu here
   order.ts              basket maths, WhatsApp message, opening hours (+ order.test.ts)
+  catering.ts           catering validation and message (+ catering.test.ts)
 public/
   brand/                transparent logo files
   images/               food photos
+e2e/                    Playwright browser tests
 design/                 original flyers and logo files (not served)
 ```
 
@@ -112,7 +117,7 @@ The interface uses Golden Bite's black-and-gold identity, with warm food imagery
 - [x] Add catering enquiries via WhatsApp.
 - [ ] Select the launch domain, hosting provider (Vercel recommended) and push to GitHub.
 - [ ] Publish and link the website to the Golden Bite Google Business Profile after verification.
-- [ ] Catering enquiry form (date, guests, budget).
+- [x] Catering enquiry form (date, guests, budget).
 - [ ] Database-backed menu with an admin page (edit prices, mark items sold out).
 - [ ] Order-management dashboard and online MoMo payments.
 - [ ] Optional customer accounts after guest ordering is established.
