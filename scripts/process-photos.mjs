@@ -17,7 +17,6 @@ const OUT = "public/images/menu";
 const SHAPES = {
   card: { width: 800, height: 600 }, // 4:3
   hero: { width: 720, height: 848 }, // matches the arched hero frame (≈0.85)
-  catering: { width: 720, height: 800 },
 };
 
 /**
@@ -64,7 +63,6 @@ const PHOTOS = [
     crop: [0, 262, 474, 356],
     focus: "centre",
   },
-  { src: "catering-packs.jpg", out: "catering.jpg", shape: "catering", focus: "centre" },
 ];
 
 /** Soft radial vignette, darker at the corners. */

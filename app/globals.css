@@ -1065,23 +1065,41 @@ h1 em {
   padding-top: 100px;
   padding-bottom: 100px;
 }
-.catering-image {
+.catering-copy {
   position: sticky;
   top: calc(var(--header-h) + 24px);
-  height: 520px;
-  overflow: hidden;
-  border-radius: 8px;
-  box-shadow: var(--shadow);
-  background: #0f0c08;
 }
-.catering-image img {
-  object-fit: cover;
+.catering-points {
+  display: grid;
+  gap: 12px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.catering-points li {
+  display: flex;
+  gap: 10px;
+  color: #3f3526;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+.catering-points li::before {
+  content: "✦";
+  color: var(--gold);
+}
+.catering-form-card {
+  padding: clamp(20px, 3vw, 32px);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--cream);
+  box-shadow: var(--shadow);
 }
 /* Catering form: light variant of the checkout fields */
 .catering-form {
   display: grid;
-  max-width: 520px;
-  margin-top: 22px;
+}
+.catering-form > .field:first-child {
+  padding-top: 0;
 }
 .catering-form .field label {
   color: #3f3526;
@@ -1181,9 +1199,8 @@ footer a:hover {
   .site-header {
     position: static;
   }
-  .catering-image {
-    position: relative;
-    top: auto;
+  .catering-copy {
+    position: static;
   }
   .header-inner {
     height: auto;
@@ -1238,9 +1255,6 @@ footer a:hover {
   .payment-section {
     padding-top: 80px;
     padding-bottom: 80px;
-  }
-  .catering-image {
-    height: min(58vw, 420px);
   }
 
   body {
@@ -1395,9 +1409,6 @@ footer a:hover {
   .catering-section {
     padding-top: 70px;
     padding-bottom: 70px;
-  }
-  .catering-image {
-    height: 260px;
   }
   footer {
     grid-template-columns: 1fr;

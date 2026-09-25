@@ -3,7 +3,6 @@ import { business, telHref, whatsappHref } from "@/lib/business";
 import { BasketButton } from "./basket/MobileBasketBar";
 import { CateringForm } from "./CateringForm";
 import heroPhoto from "@/public/images/menu/hero.jpg";
-import cateringPhoto from "@/public/images/menu/catering.jpg";
 import logoHorizontal from "@/public/brand/logo-horizontal.png";
 import logoStacked from "@/public/brand/logo-stacked.png";
 
@@ -179,15 +178,6 @@ export function Payment() {
 export function Catering() {
   return (
     <section className="catering-section" id="catering" aria-labelledby="catering-title">
-      <div className="catering-image">
-        <Image
-          src={cateringPhoto}
-          alt="Rows of packed catering meals ready for an event"
-          fill
-          sizes="(max-width: 900px) 100vw, 45vw"
-          placeholder="blur"
-        />
-      </div>
       <div className="catering-copy">
         <p className="eyebrow">For gatherings big and small</p>
         <h2 id="catering-title">Let’s cater your next event.</h2>
@@ -196,6 +186,13 @@ export function Catering() {
           celebration, meeting or special occasion delicious. Tell us about your event and we’ll
           reply on WhatsApp with options and prices.
         </p>
+        <ul className="catering-points">
+          <li>Birthdays, weddings, funerals, church and office events</li>
+          <li>Jollof, fried rice, banku & tilapia, salads and food baskets</li>
+          <li>Delivered anywhere in {business.deliveryArea}</li>
+        </ul>
+      </div>
+      <div className="catering-form-card">
         <CateringForm />
       </div>
     </section>
