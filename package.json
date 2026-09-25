@@ -11,7 +11,8 @@
     "test": "vitest run",
     "format": "prettier --write .",
     "check": "npm run lint && npm run typecheck && npm run test && npm run build",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "photos": "node scripts/process-photos.mjs"
   },
   "dependencies": {
     "next": "16.3.6",
@@ -26,6 +27,7 @@
     "eslint": "9.39.5",
     "eslint-config-next": "16.3.6",
     "prettier": "3.9.9",
+    "sharp": "0.35.4",
     "typescript": "5.9.3",
     "vitest": "5.0.1"
   },

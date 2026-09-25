@@ -2,11 +2,10 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { menu, type MenuItem } from "@/lib/menu";
+import { menu, type MenuItem, type Photo } from "@/lib/menu";
 import { formatCedis } from "@/lib/order";
 import { useBasketUI } from "../basket/BasketProvider";
 import { OrderSummary } from "../basket/OrderSummary";
-import logoStacked from "@/public/brand/logo-stacked.png";
 
 export function MenuSection() {
   const [activeId, setActiveId] = useState(menu[0].id);
@@ -39,35 +38,26 @@ export function MenuSection() {
       <div className="menu-layout">
         <div id="menu-panel">
           <div className="family-showcase">
-            <div className="family-media">
-              {family.image ? (
-                <Image
-                  src={family.image}
-                  alt={family.imageAlt}
-                  fill
-                  sizes="(max-width: 630px) 100vw, 300px"
-                  placeholder="blur"
-                />
-              ) : (
-                <div className="family-placeholder">
-                  <Image src={logoStacked} alt="" width={150} sizes="150px" />
-                </div>
-              )}
-            </div>
-            <div className="family-copy">
-              <p className="eyebrow">
-                {family.items.length} {family.items.length === 1 ? "choice" : "choices"}
-              </p>
-              <h3>{family.name}</h3>
-              <p>{family.description}</p>
-            </div>
+            <p className="eyebrow">
+              {family.items.length} {family.items.length === 1 ? "choice" : "choices"}
+            </p>
+            <h3>{family.name}</h3>
+            <p>{family.description}</p>
           </div>
 
           <div className="menu-grid">
             {family.items.map((item) => (
-              <MenuCard key={item.id} item={item} familyName={family.name} />
+              <MenuCard
+                key={item.id}
+                item={item}
+                familyName={family.name}
+                fallbackPhoto={family.photo}
+              />
             ))}
           </div>
+          <p className="photo-note">
+            Photos are serving suggestions. Portion size depends on the price you choose.
+          </p>
         </div>
 
         <aside className="order-card desktop-order" aria-label="Your order">
@@ -78,13 +68,31 @@ export function MenuSection() {
   );
 }
 
-function MenuCard({ item, familyName }: { item: MenuItem; familyName: string }) {
+function MenuCard({
+  item,
+  familyName,
+  fallbackPhoto,
+}: {
+  item: MenuItem;
+  familyName: string;
+  fallbackPhoto: Photo;
+}) {
   const { add } = useBasketUI();
   const [price, setPrice] = useState(item.prices[0]);
   const single = item.prices.length === 1;
+  const photo = item.photo ?? fallbackPhoto;
 
   return (
     <article className="menu-card">
+      <div className="menu-card-photo">
+        <Image
+          src={photo.src}
+          alt={photo.alt}
+          fill
+          sizes="(max-width: 630px) 100vw, (max-width: 900px) 45vw, 400px"
+          placeholder="blur"
+        />
+      </div>
       <div className="card-topline">
         <span>{familyName}</span>
         <span>

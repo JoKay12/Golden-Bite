@@ -2,8 +2,8 @@ import Image from "next/image";
 import { business, telHref, whatsappHref } from "@/lib/business";
 import { BasketButton } from "./basket/MobileBasketBar";
 import { CateringForm } from "./CateringForm";
-import heroPlate from "@/public/images/hero-plate.jpg";
-import platterWide from "@/public/images/jollof-platter-wide.jpg";
+import heroPhoto from "@/public/images/menu/hero.jpg";
+import cateringPhoto from "@/public/images/menu/catering.jpg";
 import logoHorizontal from "@/public/brand/logo-horizontal.png";
 import logoStacked from "@/public/brand/logo-stacked.png";
 
@@ -82,8 +82,8 @@ export function Hero() {
       <div className="hero-visual">
         <div className="hero-frame">
           <Image
-            src={heroPlate}
-            alt="Golden Bite jollof rice with grilled chicken, pepper sauce and coleslaw"
+            src={heroPhoto}
+            alt="Jollof rice with grilled turkey, fried plantain, salad and pepper sauce"
             priority
             fill
             sizes="(max-width: 900px) 90vw, 480px"
@@ -181,8 +181,8 @@ export function Catering() {
     <section className="catering-section" id="catering" aria-labelledby="catering-title">
       <div className="catering-image">
         <Image
-          src={platterWide}
-          alt="Jollof rice and grilled chicken platter"
+          src={cateringPhoto}
+          alt="Rows of packed catering meals ready for an event"
           fill
           sizes="(max-width: 900px) 100vw, 45vw"
           placeholder="blur"
