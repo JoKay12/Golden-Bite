@@ -16,7 +16,6 @@ const OUT = "public/images/menu";
 /** Output shapes. `card` is used for dish cards and food-family banners. */
 const SHAPES = {
   card: { width: 800, height: 600 }, // 4:3
-  hero: { width: 720, height: 848 }, // matches the arched hero frame (≈0.85)
 };
 
 /**
@@ -27,7 +26,6 @@ const SHAPES = {
 const PHOTOS = [
   { src: "jollof-rice-chicken-plantain.jpg", out: "jollof.jpg", shape: "card", focus: "centre" },
   { src: "jollof-turkey.jpg", out: "jollof-turkey.jpg", shape: "card", focus: "centre" },
-  { src: "jollof-turkey.jpg", out: "hero.jpg", shape: "hero", focus: "centre" },
   { src: "jollof-goat.jpg", out: "jollof-goat.jpg", shape: "card", focus: "centre" },
   { src: "jollof-beef.jpg", out: "assorted-jollof.jpg", shape: "card", focus: "centre" },
   { src: "jollof-fried-fish.jpg", out: "jollof-redfish.jpg", shape: "card", focus: "centre" },
@@ -40,13 +38,15 @@ const PHOTOS = [
     focus: "centre",
   },
   {
-    src: "plain-rice-chicken-flyer-crop.jpg",
-    out: "plain-rice.jpg",
+    src: "plain-rice-chicken-stew.jpg",
+    out: "plain-rice-chicken.jpg",
     shape: "card",
     focus: "centre",
   },
+  { src: "plain-rice-fried-fish.jpg", out: "plain-rice-fish.jpg", shape: "card", focus: "centre" },
   { src: "banku-tilapia.jpg", out: "banku-tilapia.jpg", shape: "card", focus: "centre" },
-  { src: "banku-tilapia-small.webp", out: "banku.jpg", shape: "card", focus: "centre" },
+  { src: "banku-tilapia-red-plate.jpg", out: "banku.jpg", shape: "card", focus: "centre" },
+  { src: "grilled-tilapia-board.jpg", out: "tilapia.jpg", shape: "card", focus: "centre" },
   // Source has black letterbox bars top and bottom: crop them off first.
   {
     src: "vegetable-salad-eggs.jpg",

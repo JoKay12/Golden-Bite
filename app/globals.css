@@ -338,8 +338,8 @@ h1 em {
 }
 .hero-frame {
   position: relative;
-  width: min(100%, 460px);
-  aspect-ratio: 0.85;
+  width: min(100%, 470px);
+  aspect-ratio: 936 / 1080; /* the flyer's own shape, so nothing important is cropped */
   margin-left: auto;
   overflow: hidden;
   border: 1px solid rgba(244, 196, 87, 0.5);
@@ -350,7 +350,7 @@ h1 em {
 }
 .hero-frame img {
   object-fit: cover;
-  object-position: 40% 50%;
+  object-position: 50% 50%;
 }
 .hero-note {
   position: absolute;
@@ -634,11 +634,9 @@ h1 em {
   color: var(--cream);
   box-shadow: var(--shadow);
 }
+/* No inner scrollbar: the card grows with the basket and scrolls with the page. */
 .desktop-order {
-  position: sticky;
-  top: calc(var(--header-h) + 16px);
-  max-height: calc(100vh - var(--header-h) - 32px);
-  overflow: auto;
+  align-self: start;
 }
 .order-header {
   display: flex;

@@ -11,7 +11,9 @@ import jollof from "@/public/images/menu/jollof.jpg";
 import jollofGoat from "@/public/images/menu/jollof-goat.jpg";
 import jollofRedfish from "@/public/images/menu/jollof-redfish.jpg";
 import jollofTurkey from "@/public/images/menu/jollof-turkey.jpg";
-import plainRice from "@/public/images/menu/plain-rice.jpg";
+import plainRiceChicken from "@/public/images/menu/plain-rice-chicken.jpg";
+import plainRiceFish from "@/public/images/menu/plain-rice-fish.jpg";
+import tilapia from "@/public/images/menu/tilapia.jpg";
 import vegetableSalad from "@/public/images/menu/vegetable-salad.jpg";
 
 /**
@@ -92,19 +94,30 @@ export const menu: MenuFamily[] = [
     id: "plain-rice",
     name: "Plain Rice",
     description: "Simple, satisfying rice plates with your choice of chicken or fish.",
-    photo: { src: plainRice, alt: "White rice with a grilled chicken leg" },
+    photo: {
+      src: plainRiceChicken,
+      alt: "White rice with chicken in tomato stew and a boiled egg",
+    },
     items: [
       {
         id: "plain-rice-chicken",
         name: "Plain Rice & Chicken",
         description: "Plain rice served with chicken.",
         prices: [30, 40, 50, 60, 80],
+        photo: {
+          src: plainRiceChicken,
+          alt: "White rice with chicken in tomato stew and a boiled egg",
+        },
       },
       {
         id: "plain-rice-fish",
         name: "Plain Rice & Fish",
         description: "Plain rice served with fish.",
         prices: [50, 60, 80, 100],
+        photo: {
+          src: plainRiceFish,
+          alt: "White rice with fried fish, tomatoes, peppers and onions",
+        },
       },
     ],
   },
@@ -150,7 +163,10 @@ export const menu: MenuFamily[] = [
         name: "Tilapia",
         description: "Tilapia, prepared to order.",
         prices: [40, 50, 60, 80, 100],
-        photo: { src: bankuTilapia, alt: "Grilled tilapia with peppers, onions and banku" },
+        photo: {
+          src: tilapia,
+          alt: "Whole grilled tilapia with pepper sauce, onions and green chillies",
+        },
       },
       {
         id: "tilapia-eggs",
@@ -163,7 +179,7 @@ export const menu: MenuFamily[] = [
         name: "Banku",
         description: "A side of banku.",
         prices: [5],
-        photo: { src: banku, alt: "Banku served with grilled tilapia, peppers and sauces" },
+        photo: { src: banku, alt: "Banku served with tilapia, pepper sauce and ground pepper" },
       },
     ],
   },

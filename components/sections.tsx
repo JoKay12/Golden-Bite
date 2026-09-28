@@ -2,7 +2,7 @@ import Image from "next/image";
 import { business, telHref, whatsappHref } from "@/lib/business";
 import { BasketButton } from "./basket/MobileBasketBar";
 import { CateringForm } from "./CateringForm";
-import heroPhoto from "@/public/images/menu/hero.jpg";
+import heroFlyer from "@/public/images/hero-flyer.jpg";
 import logoHorizontal from "@/public/brand/logo-horizontal.png";
 import logoStacked from "@/public/brand/logo-stacked.png";
 
@@ -81,8 +81,8 @@ export function Hero() {
       <div className="hero-visual">
         <div className="hero-frame">
           <Image
-            src={heroPhoto}
-            alt="Jollof rice with grilled turkey, fried plantain, salad and pepper sauce"
+            src={heroFlyer}
+            alt="Golden Bite flyer: Satisfy your hunger. Jollof rice with grilled chicken at Ameyaw Park, Techiman. We serve jollof, fried rice, plain rice, banku and tilapia, salads and food baskets. Open Monday to Saturday, 11am to 10pm. Call 0206637359 or 0542403077."
             priority
             fill
             sizes="(max-width: 900px) 90vw, 480px"
