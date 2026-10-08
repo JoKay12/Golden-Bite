@@ -4,7 +4,7 @@ Golden Bite is a mobile-first web application for a fast food restaurant in Tech
 
 ## Business details
 
-- **Location:** Ohene Ameyaw Park, Techiman
+- **Location:** Opposite Nana Abena Market, Techiman (moved from Ohene Ameyaw Park, October 2026)
 - **Category:** Fast food restaurant
 - **Contact:** 054 240 3077 / 020 663 7359
 - **Opening hours:** Monday–Saturday, 11:00 AM – 10:00 PM

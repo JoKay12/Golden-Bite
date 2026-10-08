@@ -193,7 +193,7 @@ nav a:hover {
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
   gap: 56px;
-  padding: 72px var(--gutter) 68px;
+  padding: 72px var(--gutter) 96px;
   background: #100e0b;
   color: var(--cream);
 }
@@ -339,7 +339,7 @@ h1 em {
 .hero-frame {
   position: relative;
   width: min(100%, 470px);
-  aspect-ratio: 936 / 1080; /* the flyer's own shape, so nothing important is cropped */
+  aspect-ratio: 828 / 1047; /* the flyer's own shape, so nothing important is cropped */
   margin-left: auto;
   overflow: hidden;
   border: 1px solid rgba(244, 196, 87, 0.5);
@@ -354,7 +354,8 @@ h1 em {
 }
 .hero-note {
   position: absolute;
-  bottom: 31px;
+  /* Hangs below the flyer's bottom edge so it never covers the hours or phone numbers. */
+  bottom: -48px;
   left: max(-4px, 1vw);
   display: grid;
   gap: 5px;
@@ -1314,7 +1315,7 @@ footer a:hover {
   .hero {
     min-height: auto;
     gap: 35px;
-    padding: 48px 20px 51px;
+    padding: 48px 20px 84px;
   }
   h1 {
     font-size: clamp(3.3rem, 17vw, 5.2rem);
@@ -1339,7 +1340,7 @@ footer a:hover {
     width: calc(100% - 20px);
   }
   .hero-note {
-    bottom: 16px;
+    bottom: -44px;
   }
   .service-strip {
     display: grid;

@@ -82,7 +82,7 @@ export function Hero() {
         <div className="hero-frame">
           <Image
             src={heroFlyer}
-            alt="Golden Bite flyer: Satisfy your hunger. Jollof rice with grilled chicken at Ameyaw Park, Techiman. We serve jollof, fried rice, plain rice, banku and tilapia, salads and food baskets. Open Monday to Saturday, 11am to 10pm. Call 0206637359 or 0542403077."
+            alt="Golden Bite flyer: Satisfy your hunger. The Golden Bite shop front with a bowl of jollof rice and chicken. We serve jollof rice, fried rice, plain rice, banku and tilapia, salads and food baskets. Opposite Nana Abena Market. Open Monday to Saturday, 11am to 10pm. Call 0206637359 or 0542403077."
             priority
             fill
             sizes="(max-width: 900px) 90vw, 480px"
@@ -123,7 +123,7 @@ export function HowToOrder() {
     ],
     [
       "Enjoy Golden Bite",
-      `Pick up at ${business.address.street} or receive delivery in ${business.deliveryArea}.`,
+      `Pick up from ${business.address.inSentence} or get it delivered in ${business.deliveryArea}.`,
     ],
   ];
   return (

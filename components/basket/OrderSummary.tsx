@@ -168,7 +168,7 @@ export function OrderSummary({ titleId }: { titleId?: string }) {
         </div>
       ) : (
         <p className="field-hint pickup-hint">
-          Pick up at {business.address.street}, {business.address.locality}.
+          Pick up from {business.address.inSentence}, {business.address.locality}.
         </p>
       )}
 

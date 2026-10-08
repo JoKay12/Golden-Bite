@@ -14,7 +14,9 @@ export const business = {
   name: "Golden Bite",
   tagline: "Satisfy your hunger",
   address: {
-    street: "Ohene Ameyaw Park",
+    street: "Opposite Nana Abena Market",
+    /** For use inside a sentence: "Pick up from our shop opposite Nana Abena Market". */
+    inSentence: "our shop opposite Nana Abena Market",
     locality: "Techiman",
     region: "Bono East",
     country: "GH",
