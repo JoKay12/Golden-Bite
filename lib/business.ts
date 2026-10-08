@@ -29,11 +29,8 @@ export const business = {
   momo: {
     network: "MTN Mobile Money",
     number: "054 240 3077",
-    /**
-     * TODO(owner): the name registered on the MoMo wallet, e.g. "Golden Bite Enterprise".
-     * When set, it is shown on the payment card so customers can check it before paying.
-     */
-    accountName: null as string | null,
+    /** Name registered on the MoMo wallet, shown so customers can check it before paying. */
+    accountName: "KYERAA SANDRA" as string | null,
   },
   /** Opening hours in Africa/Accra time. 0 = Sunday … 6 = Saturday. */
   hours: {

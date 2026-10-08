@@ -82,6 +82,15 @@ describe("WhatsApp message", () => {
     expect(msg).not.toContain("Notes:");
     expect(msg).toContain("at pickup");
   });
+
+  it("names the MoMo account when it is known", () => {
+    const msg = buildOrderMessage(
+      addToCart([], banku, 5),
+      { ...emptyDetails, name: "Ama", fulfilment: "Pickup" },
+      { ...momo, accountName: "KYERAA SANDRA" },
+    );
+    expect(msg).toContain("Payment: MTN Mobile Money (054 240 3077, KYERAA SANDRA)");
+  });
 });
 
 describe("opening hours (Africa/Accra, UTC+0)", () => {

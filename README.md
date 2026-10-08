@@ -11,7 +11,7 @@ Golden Bite is a mobile-first web application for a fast food restaurant in Tech
 - **Fulfilment:** Pickup and delivery
 - **Ordering:** WhatsApp or phone call
 - **Payment:** Mobile Money, either before delivery or on delivery
-- **Mobile Money number:** 054 240 3077 (MTN)
+- **Mobile Money number:** 054 240 3077 (MTN), account name KYERAA SANDRA
 - **Delivery area:** Techiman
 - **Additional service:** Event catering
 - **Website:** Coming soon
@@ -105,7 +105,7 @@ scripts/                process-photos.mjs: crops and colour-grades the food pho
 - [ ] Set `NEXT_PUBLIC_SITE_URL` to the real address in the hosting settings (the build warns if it is missing).
 - [ ] `npm run check` and `npm run test:e2e` pass.
 - [ ] Photos: replace the watermarked Plain Rice & Fish photo; confirm rights for all photos.
-- [ ] MoMo account name set in `lib/business.ts`.
+- [x] MoMo account name set in `lib/business.ts`.
 - [ ] After deploy: open the site on a phone, place a test order, check the WhatsApp message and the link preview.
 
 ## Common edits
@@ -122,7 +122,6 @@ The interface uses Golden Bite's black-and-gold identity, with warm food imagery
 
 - [ ] Better photos for Plain Rice (still a small crop from the flyer, used for both plain-rice dishes), Plain Rice & Fish, Tilapia & Fried Eggs and a larger Banku photo. Dishes without their own photo show their food family's photo.
 - [ ] Confirm the food photos can be used commercially (own photos, or free-licence stock such as Pexels/Unsplash).
-- [ ] Confirm the MoMo account name and set `momo.accountName` in `lib/business.ts`.
 - [ ] Confirm delivery fees/zones and the menu descriptions.
 
 ## Roadmap

@@ -138,7 +138,7 @@ const clean = (text: string, max = 200) => text.replace(/\s+/g, " ").trim().slic
 export function buildOrderMessage(
   cart: CartLine[],
   details: OrderDetails,
-  momo: { number: string; network: string },
+  momo: { number: string; network: string; accountName?: string | null },
 ): string {
   if (cart.length === 0) return "Hello Golden Bite! I would like to place an order.";
 
@@ -160,7 +160,8 @@ export function buildOrderMessage(
   if (details.fulfilment === "Delivery") {
     parts.push(`Delivery location: ${clean(details.location)}`);
   }
-  parts.push(`Payment: ${momo.network} (${momo.number}), ${paymentLabel(details).toLowerCase()}`);
+  const wallet = momo.accountName ? `${momo.number}, ${momo.accountName}` : momo.number;
+  parts.push(`Payment: ${momo.network} (${wallet}), ${paymentLabel(details).toLowerCase()}`);
   const notes = clean(details.notes, 300);
   if (notes) parts.push(`Notes: ${notes}`);
   parts.push(
