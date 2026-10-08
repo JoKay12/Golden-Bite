@@ -5,7 +5,7 @@ const decodeWhatsApp = (href: string | null) =>
 
 /** On phones the basket opens from the bottom bar; on desktop from the header button. */
 async function openBasket(page: Page) {
-  await page.getByRole("button", { name: /open basket/i }).click();
+  await page.getByRole("button", { name: /^Basket \d+ item/ }).click();
   const dialog = page.getByRole("dialog", { name: "Your basket" });
   await expect(dialog).toBeVisible();
   return dialog;
@@ -29,7 +29,7 @@ test("page loads cleanly with no horizontal scroll", async ({ page }) => {
 
 test("adding meals merges quantities and does not open the basket", async ({ page }) => {
   const firstCard = page.locator(".menu-card").first();
-  const add = firstCard.getByRole("button", { name: /^Add Jollof Rice & Chicken/ });
+  const add = firstCard.getByRole("button", { name: /^Add GH₵\d+: Jollof Rice & Chicken/ });
   await add.click();
   await add.click();
   await firstCard.getByRole("button", { name: "GH₵60" }).click();
@@ -50,7 +50,7 @@ test("adding meals merges quantities and does not open the basket", async ({ pag
 });
 
 test("checkout requires details and builds the WhatsApp order", async ({ page }) => {
-  await page.getByRole("button", { name: /^Add Jollof Rice & Chicken/ }).click();
+  await page.getByRole("button", { name: /^Add GH₵40: Jollof Rice & Chicken/ }).click();
   const dialog = await openBasket(page);
 
   await dialog.getByRole("link", { name: /send order on whatsapp/i }).click();
@@ -82,7 +82,7 @@ test("checkout requires details and builds the WhatsApp order", async ({ page })
 });
 
 test("Escape closes the basket and the basket survives a reload", async ({ page }) => {
-  await page.getByRole("button", { name: /^Add Jollof Rice & Chicken/ }).click();
+  await page.getByRole("button", { name: /^Add GH₵40: Jollof Rice & Chicken/ }).click();
   let dialog = await openBasket(page);
   await dialog.getByLabel("Your name").fill("Ama");
   // Chrome's close-watcher can swallow an Escape that follows scripted input, so retry briefly.

@@ -13,13 +13,13 @@ const generalHref = whatsappHref("Hello Golden Bite! I have a question.");
 
 export function Announcement() {
   return (
-    <div className="announcement">
+    <aside className="announcement" aria-label="Opening hours and delivery">
       <span>Open {business.hours.label}</span>
       <span className="announcement-dot" aria-hidden="true">
         •
       </span>
       <span>Pickup & delivery in {business.deliveryArea}</span>
-    </div>
+    </aside>
   );
 }
 

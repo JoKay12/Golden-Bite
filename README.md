@@ -51,7 +51,7 @@ Requires Node.js 20.9+ (22 recommended, see `.nvmrc`). Run `npx playwright insta
 npm ci            # install exact versions from package-lock.json
 npm run dev       # http://localhost:3000
 npm run check     # lint + typecheck + unit tests + production build (same as CI)
-npm run test:e2e  # browser tests of ordering, catering and 404 (phone + desktop)
+npm run test:e2e  # browser tests: ordering, catering, 404, security headers, accessibility
 ```
 
 Copy `.env.example` to `.env.local` and set `NEXT_PUBLIC_SITE_URL` to the live domain before deploying. It is used for social previews, the sitemap and Google structured data.
@@ -92,6 +92,21 @@ scripts/                process-photos.mjs: crops and colour-grades the food pho
 3. At checkout the customer chooses Delivery or Pickup, enters their name, delivery area/landmark, when they will pay with MoMo, and optional notes.
 4. **Send order on WhatsApp** opens a chat with 054 240 3077 containing the full order. Staff confirm the order and delivery fee, then the customer pays by MTN MoMo.
 5. Outside opening hours the basket shows a notice with the next opening time (Africa/Accra time).
+
+## Security notes
+
+- The basket is stored in the customer's browser and is rebuilt from `lib/menu.ts` on every load, so edited prices or dishes are dropped. Customers can still edit the WhatsApp message before sending: staff must always check totals against the price list.
+- Security headers (CSP, clickjacking protection, nosniff, Referrer-Policy, Permissions-Policy, HSTS) are set in `next.config.ts`. If you add an external script, image host or embed, add its domain to the CSP there.
+- Keep dependencies patched: `npm audit --omit=dev` must report 0 vulnerabilities (CI checks this). Remaining dev-only warnings in the lint toolchain do not ship to visitors.
+- Only run `npm run dev` on Wi-Fi you trust; the dev server accepts connections from your local network.
+
+## Before going live
+
+- [ ] Set `NEXT_PUBLIC_SITE_URL` to the real address in the hosting settings (the build warns if it is missing).
+- [ ] `npm run check` and `npm run test:e2e` pass.
+- [ ] Photos: replace the watermarked Plain Rice & Fish photo; confirm rights for all photos.
+- [ ] MoMo account name set in `lib/business.ts`.
+- [ ] After deploy: open the site on a phone, place a test order, check the WhatsApp message and the link preview.
 
 ## Common edits
 

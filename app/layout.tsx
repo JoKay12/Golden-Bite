@@ -7,11 +7,12 @@ const description =
 
 export const metadata: Metadata = {
   metadataBase: new URL(business.siteUrl),
-  title: "Golden Bite | Satisfy Your Hunger · Techiman",
+  title: "Golden Bite Techiman | Jollof, Fried Rice & Banku Delivery",
   description,
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
+    url: "/",
     locale: "en_GH",
     siteName: business.name,
     title: "Golden Bite · Satisfy your hunger",

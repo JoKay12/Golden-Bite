@@ -119,7 +119,7 @@ function MenuCard({
       <button
         className="add-button"
         type="button"
-        aria-label={`Add ${item.name}, ${formatCedis(price)}, to basket`}
+        aria-label={`Add ${formatCedis(price)}: ${item.name}`}
         onClick={() => add(item, price)}
       >
         Add {formatCedis(price)} <span aria-hidden="true">+</span>

@@ -1,7 +1,14 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { emptyDetails, type CartLine, type OrderDetails } from "@/lib/order";
+import { allItems } from "@/lib/menu";
+import {
+  emptyDetails,
+  sanitizeCart,
+  sanitizeDetails,
+  type CartLine,
+  type OrderDetails,
+} from "@/lib/order";
 
 /**
  * A tiny external store for the basket and checkout details.
@@ -22,25 +29,12 @@ function load(): BasketState {
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) return SERVER_STATE;
-    const parsed = JSON.parse(raw) as Partial<BasketState>;
-    return {
-      cart: Array.isArray(parsed.cart) ? parsed.cart.filter(isCartLine) : [],
-      details: { ...emptyDetails, ...parsed.details },
-    };
+    const parsed = JSON.parse(raw) as { cart?: unknown; details?: unknown };
+    // Never trust storage: rebuild from the official menu (see sanitizeCart).
+    return { cart: sanitizeCart(parsed.cart, allItems), details: sanitizeDetails(parsed.details) };
   } catch {
     return SERVER_STATE;
   }
-}
-
-function isCartLine(value: unknown): value is CartLine {
-  const line = value as CartLine;
-  return (
-    typeof line?.key === "string" &&
-    typeof line.name === "string" &&
-    typeof line.price === "number" &&
-    typeof line.qty === "number" &&
-    line.qty > 0
-  );
 }
 
 function getSnapshot(): BasketState {
@@ -51,6 +45,11 @@ function getSnapshot(): BasketState {
 function subscribe(listener: () => void) {
   listeners.add(listener);
   return () => listeners.delete(listener);
+}
+
+/** Empties the basket and forgets the customer's details on this device. */
+export function clearBasket() {
+  updateBasket(() => ({ cart: [], details: emptyDetails }));
 }
 
 export function updateBasket(update: (current: BasketState) => BasketState) {

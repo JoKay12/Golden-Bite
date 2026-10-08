@@ -56,6 +56,55 @@ export function setQty(cart: CartLine[], key: string, qty: number): CartLine[] {
   return cart.map((line) => (line.key === key ? { ...line, qty: Math.min(qty, MAX_QTY) } : line));
 }
 
+export type CatalogItem = { id: string; name: string; prices: readonly number[] };
+
+/**
+ * Rebuilds a basket read from browser storage against the official menu. Storage can be edited
+ * by anyone, so every line must name a real dish at one of its real prices; the dish name comes
+ * from the menu, quantities are whole numbers from 1 to MAX_QTY, and duplicates are merged.
+ */
+export function sanitizeCart(raw: unknown, catalog: readonly CatalogItem[]): CartLine[] {
+  if (!Array.isArray(raw)) return [];
+  const byId = new Map(catalog.map((item) => [item.id, item]));
+  let cart: CartLine[] = [];
+  for (const entry of raw.slice(0, 100)) {
+    const line = entry as Partial<CartLine> | null;
+    const item = typeof line?.itemId === "string" ? byId.get(line.itemId) : undefined;
+    const price = line?.price;
+    const qty = line?.qty;
+    if (!item || typeof price !== "number" || !item.prices.includes(price)) continue;
+    if (typeof qty !== "number" || !Number.isInteger(qty) || qty < 1) continue;
+    const existing = cart.find((l) => l.key === lineKey(item.id, price));
+    const current = existing?.qty ?? 0;
+    cart = existing
+      ? setQty(cart, existing.key, current + qty)
+      : [
+          ...cart,
+          {
+            key: lineKey(item.id, price),
+            itemId: item.id,
+            name: item.name,
+            price,
+            qty: Math.min(qty, MAX_QTY),
+          },
+        ];
+  }
+  return cart;
+}
+
+/** Same idea for the saved checkout details: only known choices and plain strings survive. */
+export function sanitizeDetails(raw: unknown): OrderDetails {
+  const d = (raw && typeof raw === "object" ? raw : {}) as Record<string, unknown>;
+  const text = (v: unknown, max: number) => (typeof v === "string" ? v.slice(0, max) : "");
+  return {
+    name: text(d.name, 80),
+    fulfilment: d.fulfilment === "Pickup" ? "Pickup" : "Delivery",
+    location: text(d.location, 200),
+    payment: d.payment === "Before delivery" ? "Before delivery" : "On delivery",
+    notes: text(d.notes, 300),
+  };
+}
+
 export const cartCount = (cart: CartLine[]) => cart.reduce((sum, line) => sum + line.qty, 0);
 
 export const cartTotal = (cart: CartLine[]) =>

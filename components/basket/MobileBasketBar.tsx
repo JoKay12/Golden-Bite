@@ -30,7 +30,7 @@ export function BasketButton() {
     <button
       className="cart-trigger"
       type="button"
-      aria-label={`Open basket, ${count} item${count === 1 ? "" : "s"}`}
+      aria-label={`Basket ${count} item${count === 1 ? "" : "s"}`}
       onClick={openBasket}
     >
       <BagIcon />

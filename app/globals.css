@@ -835,7 +835,7 @@ h1 em {
 .whatsapp-button:hover {
   background: var(--gold-bright);
 }
-.whatsapp-button[aria-disabled="true"] {
+.whatsapp-button:disabled {
   opacity: 0.45;
   cursor: not-allowed;
   transform: none;
@@ -1450,4 +1450,27 @@ footer a:hover {
 }
 .not-found .hero-actions {
   justify-content: center;
+}
+
+.clear-basket {
+  margin-top: 12px;
+  text-align: center;
+}
+.clear-basket p {
+  margin: 0 0 6px;
+  color: #f1e3c4;
+  font-size: 0.82rem;
+}
+.clear-basket button {
+  min-height: 44px;
+  border: 0;
+  background: transparent;
+  color: #d6ccbc;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: underline;
+}
+.clear-basket button:hover,
+.clear-basket.is-sent button {
+  color: var(--gold-bright);
 }

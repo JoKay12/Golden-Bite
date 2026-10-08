@@ -16,7 +16,7 @@ import {
   type PaymentTiming,
 } from "@/lib/order";
 import { BagIcon } from "./MobileBasketBar";
-import { updateBasket, useBasketState } from "./store";
+import { clearBasket, updateBasket, useBasketState } from "./store";
 
 const FULFILMENT: Fulfilment[] = ["Delivery", "Pickup"];
 const PAYMENT: PaymentTiming[] = ["On delivery", "Before delivery"];
@@ -36,6 +36,7 @@ function useNowMinute(): number | null {
 export function OrderSummary({ titleId }: { titleId?: string }) {
   const { cart, details } = useBasketState();
   const [showErrors, setShowErrors] = useState(false);
+  const [sent, setSent] = useState(false);
   const uid = useId();
   const minute = useNowMinute();
 
@@ -206,26 +207,44 @@ export function OrderSummary({ titleId }: { titleId?: string }) {
         <strong>{formatCedis(total)}</strong>
       </div>
 
-      <a
-        className="button whatsapp-button"
-        href={empty ? undefined : href}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-disabled={empty}
-        onClick={(event) => {
-          if (empty) {
-            event.preventDefault();
-            return;
-          }
-          if (!valid) {
-            event.preventDefault();
-            setShowErrors(true);
-            document.getElementById(errors.name ? ids.name : ids.location)?.focus();
-          }
-        }}
-      >
-        Send order on WhatsApp <span aria-hidden="true">↗</span>
-      </a>
+      {empty ? (
+        <button className="button whatsapp-button" type="button" disabled>
+          Send order on WhatsApp <span aria-hidden="true">↗</span>
+        </button>
+      ) : (
+        <a
+          className="button whatsapp-button"
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(event) => {
+            if (!valid) {
+              event.preventDefault();
+              setShowErrors(true);
+              document.getElementById(errors.name ? ids.name : ids.location)?.focus();
+              return;
+            }
+            setSent(true);
+          }}
+        >
+          Send order on WhatsApp <span aria-hidden="true">↗</span>
+        </a>
+      )}
+      {!empty && (
+        <div className={`clear-basket${sent ? " is-sent" : ""}`}>
+          {sent && <p role="status">Order sent? Clear it so it isn’t sent twice.</p>}
+          <button
+            type="button"
+            onClick={() => {
+              clearBasket();
+              setSent(false);
+              setShowErrors(false);
+            }}
+          >
+            Clear basket and my details
+          </button>
+        </div>
+      )}
       <p className="basket-help">
         Opens WhatsApp with your order filled in. Or call{" "}
         <a href={`tel:+${business.phones[0].international}`}>{business.phones[0].display}</a>.

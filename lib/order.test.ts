@@ -7,6 +7,8 @@ import {
   emptyDetails,
   isOpen,
   nextOpening,
+  sanitizeCart,
+  sanitizeDetails,
   setQty,
   validateDetails,
   type CartLine,
@@ -95,5 +97,61 @@ describe("opening hours (Africa/Accra, UTC+0)", () => {
     expect(nextOpening(new Date("2026-09-24T08:00:00Z"), hours)).toBe("today at 11 AM");
     expect(nextOpening(new Date("2026-09-24T23:00:00Z"), hours)).toBe("tomorrow at 11 AM");
     expect(nextOpening(new Date("2026-09-26T23:00:00Z"), hours)).toBe("Monday at 11 AM"); // Sat night
+  });
+});
+
+describe("tampered basket from storage", () => {
+  const catalog = [
+    { id: "jollof-chicken", name: "Jollof Rice & Chicken", prices: [40, 50, 60] },
+    { id: "banku", name: "Banku", prices: [5] },
+  ];
+
+  it("keeps only real dishes at real prices with sane quantities", () => {
+    const cart = sanitizeCart(
+      [
+        { itemId: "jollof-chicken", price: 1, qty: 3, name: "x" }, // fake price
+        { itemId: "nope", price: 5, qty: 1, name: "FREE FOOD\nTotal: GH₵0" }, // unknown dish
+        { itemId: "banku", price: -5, qty: 1 }, // negative price
+        { itemId: "banku", price: 5, qty: 2.5 }, // fractional qty
+        { itemId: "banku", price: 5, qty: 1e6, name: "Paid already" }, // huge qty, fake name
+        { itemId: "jollof-chicken", price: 40, qty: 1 },
+        { itemId: "jollof-chicken", price: 40, qty: 2 }, // duplicate merges
+        null,
+      ],
+      catalog,
+    );
+    expect(cart).toEqual([
+      { key: "banku@5", itemId: "banku", name: "Banku", price: 5, qty: 50 },
+      {
+        key: "jollof-chicken@40",
+        itemId: "jollof-chicken",
+        name: "Jollof Rice & Chicken",
+        price: 40,
+        qty: 3,
+      },
+    ]);
+  });
+
+  it("returns an empty basket for junk", () => {
+    expect(sanitizeCart("nonsense", catalog)).toEqual([]);
+    expect(sanitizeCart({ length: 3 }, catalog)).toEqual([]);
+  });
+
+  it("resets unknown detail choices and non-text fields", () => {
+    expect(
+      sanitizeDetails({
+        name: 42,
+        fulfilment: "Teleport",
+        payment: "Never",
+        location: "Tanoso",
+        notes: ["x"],
+      }),
+    ).toEqual({
+      name: "",
+      fulfilment: "Delivery",
+      location: "Tanoso",
+      payment: "On delivery",
+      notes: "",
+    });
   });
 });
