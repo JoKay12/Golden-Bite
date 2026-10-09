@@ -13,13 +13,13 @@ import {
   validateDetails,
   type Fulfilment,
   type OrderDetails,
-  type PaymentTiming,
+  type PaymentMethod,
 } from "@/lib/order";
 import { BagIcon } from "./MobileBasketBar";
 import { clearBasket, updateBasket, useBasketState } from "./store";
 
 const FULFILMENT: Fulfilment[] = ["Delivery", "Pickup"];
-const PAYMENT: PaymentTiming[] = ["On delivery", "Before delivery"];
+const PAYMENT: PaymentMethod[] = ["MoMo", "Cash"];
 
 /** Current minute, refreshed every 30 s; null during server render so the notice never mismatches. */
 function useNowMinute(): number | null {
@@ -173,7 +173,7 @@ export function OrderSummary({ titleId }: { titleId?: string }) {
       )}
 
       <fieldset className="choice-group">
-        <legend>When will you pay with MoMo?</legend>
+        <legend>Mode of payment</legend>
         <div>
           {PAYMENT.map((option) => (
             <button
@@ -182,10 +182,15 @@ export function OrderSummary({ titleId }: { titleId?: string }) {
               onClick={() => setDetails({ payment: option })}
               key={option}
             >
-              {paymentLabel(details, option)}
+              {paymentLabel(option)}
             </button>
           ))}
         </div>
+        <small className="field-hint">
+          {details.payment === "MoMo"
+            ? `${business.momo.number}${business.momo.accountName ? ` · ${business.momo.accountName}` : ""}. Pay after we confirm your order.`
+            : `Pay in cash ${details.fulfilment === "Delivery" ? "when your order arrives" : "when you pick up"}.`}
+        </small>
       </fieldset>
 
       <div className="field">

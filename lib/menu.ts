@@ -1,20 +1,20 @@
 import type { StaticImageData } from "next/image";
-import assortedFriedRice from "@/public/images/menu/assorted-fried-rice.jpg";
-import assortedJollof from "@/public/images/menu/assorted-jollof.jpg";
-import banku from "@/public/images/menu/banku.jpg";
-import bankuTilapia from "@/public/images/menu/banku-tilapia.jpg";
-import chickenSalad from "@/public/images/menu/chicken-salad.jpg";
-import foodBasket from "@/public/images/menu/food-basket.jpg";
-import friedRice from "@/public/images/menu/fried-rice.jpg";
-import friedRiceChicken from "@/public/images/menu/fried-rice-chicken.jpg";
-import jollof from "@/public/images/menu/jollof.jpg";
-import jollofGoat from "@/public/images/menu/jollof-goat.jpg";
-import jollofRedfish from "@/public/images/menu/jollof-redfish.jpg";
-import jollofTurkey from "@/public/images/menu/jollof-turkey.jpg";
-import plainRiceChicken from "@/public/images/menu/plain-rice-chicken.jpg";
-import plainRiceFish from "@/public/images/menu/plain-rice-fish.jpg";
-import tilapia from "@/public/images/menu/tilapia.jpg";
-import vegetableSalad from "@/public/images/menu/vegetable-salad.jpg";
+import assortedFriedRice from "@/public/images/menu/assorted-fried-rice.webp";
+import assortedJollof from "@/public/images/menu/assorted-jollof.webp";
+import banku from "@/public/images/menu/banku.webp";
+import bankuTilapia from "@/public/images/menu/banku-tilapia.webp";
+import chickenSalad from "@/public/images/menu/chicken-salad.webp";
+import foodBasket from "@/public/images/menu/food-basket.webp";
+import friedRice from "@/public/images/menu/fried-rice.webp";
+import friedRiceChicken from "@/public/images/menu/fried-rice-chicken.webp";
+import jollof from "@/public/images/menu/jollof.webp";
+import jollofGoat from "@/public/images/menu/jollof-goat.webp";
+import jollofRedfish from "@/public/images/menu/jollof-redfish.webp";
+import jollofTurkey from "@/public/images/menu/jollof-turkey.webp";
+import plainRiceChicken from "@/public/images/menu/plain-rice-chicken.webp";
+import plainRiceFish from "@/public/images/menu/plain-rice-fish.webp";
+import tilapia from "@/public/images/menu/tilapia.webp";
+import vegetableSalad from "@/public/images/menu/vegetable-salad.webp";
 
 /**
  * Menu and prices, copied from the official Golden Bite menu flyer (design/menu-flyer.jpeg).
@@ -116,7 +116,7 @@ export const menu: MenuFamily[] = [
         prices: [50, 60, 80, 100],
         photo: {
           src: plainRiceFish,
-          alt: "White rice with fried fish, tomatoes, peppers and onions",
+          alt: "Plain white rice with fried tilapia in tomato stew, salad and pepper sauce",
         },
       },
     ],
@@ -165,7 +165,7 @@ export const menu: MenuFamily[] = [
         prices: [40, 50, 60, 80, 100],
         photo: {
           src: tilapia,
-          alt: "Whole grilled tilapia with pepper sauce, onions and green chillies",
+          alt: "Whole spiced grilled tilapia with sliced onions",
         },
       },
       {

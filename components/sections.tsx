@@ -2,7 +2,7 @@ import Image from "next/image";
 import { business, telHref, whatsappHref } from "@/lib/business";
 import { BasketButton } from "./basket/MobileBasketBar";
 import { CateringForm } from "./CateringForm";
-import heroFlyer from "@/public/images/hero-flyer.jpg";
+import heroFlyer from "@/public/images/hero-flyer.webp";
 import logoHorizontal from "@/public/brand/logo-horizontal.png";
 import logoStacked from "@/public/brand/logo-stacked.png";
 
@@ -73,8 +73,8 @@ export function Hero() {
             <dd>Delivery area</dd>
           </div>
           <div>
-            <dt>MTN MoMo</dt>
-            <dd>Pay before or on delivery</dd>
+            <dt>MoMo or cash</dt>
+            <dd>Pay your way</dd>
           </div>
         </dl>
       </div>
@@ -156,10 +156,10 @@ export function Payment() {
     <section className="payment-section" aria-labelledby="pay-title">
       <div className="payment-copy">
         <p className="eyebrow">Easy payment</p>
-        <h2 id="pay-title">Pay with MTN Mobile Money.</h2>
+        <h2 id="pay-title">Pay with MoMo or cash.</h2>
         <p>
-          Pay before delivery or when your order arrives. We confirm every order by WhatsApp or
-          phone call before you pay.
+          Choose your payment mode when you order: MTN Mobile Money, or cash on delivery or at
+          pickup. We confirm every order by WhatsApp or phone call before you pay.
         </p>
       </div>
       <div className="momo-card">

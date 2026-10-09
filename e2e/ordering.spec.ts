@@ -59,7 +59,7 @@ test("checkout requires details and builds the WhatsApp order", async ({ page })
 
   await dialog.getByLabel("Your name").fill("Kofi Mensah");
   await dialog.getByLabel("Delivery area and landmark").fill("Tanoso, near the filling station");
-  await dialog.getByRole("button", { name: "Before delivery" }).click();
+  await dialog.getByRole("button", { name: "Cash", exact: true }).click();
   await dialog.getByLabel(/notes/i).fill("Extra shito");
 
   const message = decodeWhatsApp(
@@ -68,7 +68,7 @@ test("checkout requires details and builds the WhatsApp order", async ({ page })
   expect(message).toContain("1 × Jollof Rice & Chicken (GH₵40) = GH₵40");
   expect(message).toContain("Name: Kofi Mensah");
   expect(message).toContain("Delivery location: Tanoso, near the filling station");
-  expect(message).toContain("before delivery");
+  expect(message).toContain("Mode of payment: Cash on delivery");
   expect(message).toContain("Notes: Extra shito");
 
   await dialog.getByRole("button", { name: "Pickup" }).click();
@@ -77,7 +77,13 @@ test("checkout requires details and builds the WhatsApp order", async ({ page })
     await dialog.getByRole("link", { name: /send order on whatsapp/i }).getAttribute("href"),
   );
   expect(pickup).toContain("Fulfilment: Pickup");
-  expect(pickup).toContain("before pickup");
+  expect(pickup).toContain("Mode of payment: Cash at pickup");
+
+  await dialog.getByRole("button", { name: "Mobile Money (MoMo)" }).click();
+  const momo = decodeWhatsApp(
+    await dialog.getByRole("link", { name: /send order on whatsapp/i }).getAttribute("href"),
+  );
+  expect(momo).toContain("Mode of payment: MoMo (MTN Mobile Money 054 240 3077, KYERAA SANDRA)");
   expect(pickup).not.toContain("Delivery location");
 });
 

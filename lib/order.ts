@@ -12,14 +12,14 @@ export type CartLine = {
 };
 
 export type Fulfilment = "Delivery" | "Pickup";
-export type PaymentTiming = "Before delivery" | "On delivery";
+export type PaymentMethod = "MoMo" | "Cash";
 
 export type OrderDetails = {
   name: string;
   fulfilment: Fulfilment;
   /** Area and landmark in Techiman. Required for delivery. */
   location: string;
-  payment: PaymentTiming;
+  payment: PaymentMethod;
   notes: string;
 };
 
@@ -27,7 +27,7 @@ export const emptyDetails: OrderDetails = {
   name: "",
   fulfilment: "Delivery",
   location: "",
-  payment: "On delivery",
+  payment: "MoMo",
   notes: "",
 };
 
@@ -100,7 +100,7 @@ export function sanitizeDetails(raw: unknown): OrderDetails {
     name: text(d.name, 80),
     fulfilment: d.fulfilment === "Pickup" ? "Pickup" : "Delivery",
     location: text(d.location, 200),
-    payment: d.payment === "Before delivery" ? "Before delivery" : "On delivery",
+    payment: d.payment === "Cash" ? "Cash" : "MoMo",
     notes: text(d.notes, 300),
   };
 }
@@ -112,13 +112,9 @@ export const cartTotal = (cart: CartLine[]) =>
 
 export const formatCedis = (amount: number) => `GH₵${amount.toLocaleString("en-GH")}`;
 
-/** "On delivery" reads as "At pickup" when the customer is collecting the order. */
-export function paymentLabel(
-  details: Pick<OrderDetails, "fulfilment" | "payment">,
-  payment = details.payment,
-) {
-  if (details.fulfilment === "Delivery") return payment;
-  return payment === "On delivery" ? "At pickup" : "Before pickup";
+/** Button text for each payment mode. */
+export function paymentLabel(method: PaymentMethod) {
+  return method === "MoMo" ? "Mobile Money (MoMo)" : "Cash";
 }
 
 export type DetailErrors = Partial<Record<"name" | "location", string>>;
@@ -160,8 +156,14 @@ export function buildOrderMessage(
   if (details.fulfilment === "Delivery") {
     parts.push(`Delivery location: ${clean(details.location)}`);
   }
-  const wallet = momo.accountName ? `${momo.number}, ${momo.accountName}` : momo.number;
-  parts.push(`Payment: ${momo.network} (${wallet}), ${paymentLabel(details).toLowerCase()}`);
+  if (details.payment === "MoMo") {
+    const wallet = momo.accountName ? `${momo.number}, ${momo.accountName}` : momo.number;
+    parts.push(`Mode of payment: MoMo (${momo.network} ${wallet})`);
+  } else {
+    parts.push(
+      `Mode of payment: Cash ${details.fulfilment === "Delivery" ? "on delivery" : "at pickup"}`,
+    );
+  }
   const notes = clean(details.notes, 300);
   if (notes) parts.push(`Notes: ${notes}`);
   parts.push(

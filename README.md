@@ -89,8 +89,8 @@ scripts/                process-photos.mjs: crops and colour-grades the food pho
 
 1. Customer picks a food family, a meal and a portion, then taps **Add**. Identical meals merge into one line with a quantity.
 2. The basket is saved in the browser, so it survives a refresh or a trip to WhatsApp and back.
-3. At checkout the customer chooses Delivery or Pickup, enters their name, delivery area/landmark, when they will pay with MoMo, and optional notes.
-4. **Send order on WhatsApp** opens a chat with 054 240 3077 containing the full order. Staff confirm the order and delivery fee, then the customer pays by MTN MoMo.
+3. At checkout the customer chooses Delivery or Pickup, enters their name, delivery area/landmark, payment mode (MoMo or cash), and optional notes.
+4. **Send order on WhatsApp** opens a chat with 054 240 3077 containing the full order. Staff confirm the order and delivery fee, then the customer pays by MTN MoMo or in cash.
 5. Outside opening hours the basket shows a notice with the next opening time (Africa/Accra time).
 
 ## Security notes
@@ -104,7 +104,8 @@ scripts/                process-photos.mjs: crops and colour-grades the food pho
 
 - [ ] Set `NEXT_PUBLIC_SITE_URL` to the real address in the hosting settings (the build warns if it is missing).
 - [ ] `npm run check` and `npm run test:e2e` pass.
-- [ ] Photos: replace the watermarked Plain Rice & Fish photo; confirm rights for all photos.
+- [x] Plain Rice & Fish photo replaced (no watermark).
+- [ ] Photos: confirm rights for all photos.
 - [x] MoMo account name set in `lib/business.ts`.
 - [ ] After deploy: open the site on a phone, place a test order, check the WhatsApp message and the link preview.
 
@@ -112,7 +113,7 @@ scripts/                process-photos.mjs: crops and colour-grades the food pho
 
 - **Change a price or add a dish:** edit `lib/menu.ts`.
 - **Change phone numbers, hours or MoMo details:** edit `lib/business.ts`.
-- **Add or change a food photo:** put the original in `design/photos/`, add a line for it in `scripts/process-photos.mjs`, run `npm run photos`, then import the new file from `public/images/menu/` in `lib/menu.ts` and set it as the dish's or food family's `photo`. Every photo gets the same crop, warm colour grade and dark vignette.
+- **Add or change a food photo:** put the original in `design/photos/`, add a line for it in `scripts/process-photos.mjs`, run `npm run photos`, then import the new file from `public/images/menu/` in `lib/menu.ts` and set it as the dish's or food family's `photo`. Every photo gets the same crop, warm colour grade and dark vignette, and is saved as a ready-sized WebP (the site serves photos as-is, with no resizing on request).
 
 ## Design direction
 
@@ -120,7 +121,7 @@ The interface uses Golden Bite's black-and-gold identity, with warm food imagery
 
 ## Owner to-do
 
-- [ ] Better photos for Plain Rice (still a small crop from the flyer, used for both plain-rice dishes), Plain Rice & Fish, Tilapia & Fried Eggs and a larger Banku photo. Dishes without their own photo show their food family's photo.
+- [ ] Better photos for Tilapia & Fried Eggs and a larger Banku photo. Dishes without their own photo show their food family's photo.
 - [ ] Confirm the food photos can be used commercially (own photos, or free-licence stock such as Pexels/Unsplash).
 - [ ] Confirm delivery fees/zones and the menu descriptions.
 

@@ -3,6 +3,8 @@
  * with one consistent Golden Bite look: same shape per use, warm grade, gentle contrast and a
  * soft dark vignette so every photo sits well on the black-and-gold design.
  *
+ * Files are saved as WebP, already sized for the site, so the server never has to resize them.
+ *
  * Run after adding or changing a photo:   npm run photos
  * Then point the dish or food family at the new file in lib/menu.ts.
  */
@@ -43,10 +45,24 @@ const PHOTOS = [
     shape: "card",
     focus: "centre",
   },
-  { src: "plain-rice-fried-fish.jpg", out: "plain-rice-fish.jpg", shape: "card", focus: "centre" },
+  // Trim the white strip at the top; keep the whole fish, rice and pepper sauce.
+  {
+    src: "plain-rice-tilapia.jpg",
+    out: "plain-rice-fish.jpg",
+    shape: "card",
+    crop: [0, 70, 735, 551],
+    focus: "centre",
+  },
   { src: "banku-tilapia.jpg", out: "banku-tilapia.jpg", shape: "card", focus: "centre" },
   { src: "banku-tilapia-red-plate.jpg", out: "banku.jpg", shape: "card", focus: "centre" },
-  { src: "grilled-tilapia-board.jpg", out: "tilapia.jpg", shape: "card", focus: "centre" },
+  // Top of a tall photo: the whole fish, head included, with only the rim of the sauce bowl.
+  {
+    src: "grilled-tilapia-board.jpg",
+    out: "tilapia.jpg",
+    shape: "card",
+    crop: [0, 20, 722, 541],
+    focus: "centre",
+  },
   // Source has black letterbox bars top and bottom: crop them off first.
   {
     src: "vegetable-salad-eggs.jpg",
@@ -100,11 +116,11 @@ async function processPhoto({ src, out, shape, crop, focus }) {
     .linear(1.07, -8)
     .composite([{ input: vignette(width, height) }])
     .sharpen({ sigma: 0.6 })
-    .jpeg({ quality: 82, mozjpeg: true, progressive: true })
+    .webp({ quality: 72, effort: 6, smartSubsample: true })
     .toBuffer();
 
-  await sharp(buffer).toFile(path.join(OUT, out));
-  return `${out.padEnd(26)} ${width}×${height}  ← ${src}`;
+  await sharp(buffer).toFile(path.join(OUT, out.replace(/\.jpg$/, ".webp")));
+  return `${out.replace(/\.jpg$/, ".webp").padEnd(26)} ${width}×${height}  ← ${src}`;
 }
 
 await mkdir(OUT, { recursive: true });

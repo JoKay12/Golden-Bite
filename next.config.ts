@@ -49,7 +49,11 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
-  images: { formats: ["image/avif", "image/webp"] },
+  /**
+   * Photos are already resized and saved as WebP by `npm run photos`, so they are served as-is.
+   * Resizing them on request made the small hosting server take ~10 s per photo on first view.
+   */
+  images: { unoptimized: true },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },

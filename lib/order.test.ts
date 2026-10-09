@@ -57,7 +57,7 @@ describe("WhatsApp message", () => {
         name: "  Kofi  ",
         fulfilment: "Delivery",
         location: "Tanoso, near\nthe filling station",
-        payment: "Before delivery",
+        payment: "Cash",
         notes: "Extra shito",
       },
       momo,
@@ -67,7 +67,7 @@ describe("WhatsApp message", () => {
     expect(msg).toContain("Food total: GH₵85");
     expect(msg).toContain("Name: Kofi");
     expect(msg).toContain("Delivery location: Tanoso, near the filling station");
-    expect(msg).toContain("before delivery");
+    expect(msg).toContain("Mode of payment: Cash on delivery");
     expect(msg).toContain("Notes: Extra shito");
     expect(msg).toContain("delivery fee");
   });
@@ -75,21 +75,21 @@ describe("WhatsApp message", () => {
   it("omits location for pickup", () => {
     const msg = buildOrderMessage(
       addToCart([], banku, 5),
-      { ...emptyDetails, name: "Ama", fulfilment: "Pickup", location: "ignored" },
+      { ...emptyDetails, name: "Ama", fulfilment: "Pickup", location: "ignored", payment: "Cash" },
       momo,
     );
     expect(msg).not.toContain("Delivery location");
     expect(msg).not.toContain("Notes:");
-    expect(msg).toContain("at pickup");
+    expect(msg).toContain("Mode of payment: Cash at pickup");
   });
 
-  it("names the MoMo account when it is known", () => {
+  it("shows MoMo as the payment mode with the wallet and account name", () => {
     const msg = buildOrderMessage(
       addToCart([], banku, 5),
       { ...emptyDetails, name: "Ama", fulfilment: "Pickup" },
       { ...momo, accountName: "KYERAA SANDRA" },
     );
-    expect(msg).toContain("Payment: MTN Mobile Money (054 240 3077, KYERAA SANDRA)");
+    expect(msg).toContain("Mode of payment: MoMo (MTN Mobile Money 054 240 3077, KYERAA SANDRA)");
   });
 });
 
@@ -159,7 +159,7 @@ describe("tampered basket from storage", () => {
       name: "",
       fulfilment: "Delivery",
       location: "Tanoso",
-      payment: "On delivery",
+      payment: "MoMo",
       notes: "",
     });
   });

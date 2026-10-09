@@ -762,6 +762,10 @@ h1 em {
   font-size: 0.85rem;
   font-weight: 800;
 }
+.choice-group .field-hint {
+  display: block;
+  margin-top: 7px;
+}
 .choice-group button[aria-pressed="true"] {
   border-color: var(--gold);
   background: rgba(216, 154, 24, 0.2);
