@@ -65,7 +65,10 @@ export const menu: MenuFamily[] = [
         name: "Assorted Jollof with Chicken",
         description: "Assorted jollof served with chicken.",
         prices: [60, 80, 100, 150, 200],
-        photo: { src: assortedJollof, alt: "Jollof rice with pieces of stewed meat" },
+        photo: {
+          src: assortedJollof,
+          alt: "Assorted jollof rice with beef, sausage, cabbage, peppers and mixed vegetables",
+        },
       },
       {
         id: "jollof-redfish",

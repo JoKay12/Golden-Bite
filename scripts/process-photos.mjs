@@ -29,7 +29,12 @@ const PHOTOS = [
   { src: "jollof-rice-chicken-plantain.jpg", out: "jollof.jpg", shape: "card", focus: "centre" },
   { src: "jollof-turkey.jpg", out: "jollof-turkey.jpg", shape: "card", focus: "centre" },
   { src: "jollof-goat.jpg", out: "jollof-goat.jpg", shape: "card", focus: "centre" },
-  { src: "jollof-beef.jpg", out: "assorted-jollof.jpg", shape: "card", focus: "centre" },
+  {
+    src: "assorted-jollof-mixed.jpg",
+    out: "assorted-jollof.jpg",
+    shape: "card",
+    focus: "centre",
+  },
   { src: "jollof-fried-fish.jpg", out: "jollof-redfish.jpg", shape: "card", focus: "centre" },
   { src: "fried-rice-skillet.jpg", out: "fried-rice.jpg", shape: "card", focus: "centre" },
   { src: "fried-rice-chicken.jpg", out: "fried-rice-chicken.jpg", shape: "card", focus: "centre" },
