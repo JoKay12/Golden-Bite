@@ -2,6 +2,19 @@ import Image from "next/image";
 import { business, telHref, whatsappHref } from "@/lib/business";
 import { BasketButton } from "./basket/MobileBasketBar";
 import { CateringForm } from "./CateringForm";
+import {
+  ArrowDownIcon,
+  CashIcon,
+  CateringIcon,
+  ChatIcon,
+  CheckIcon,
+  ClockIcon,
+  DeliveryIcon,
+  MealIcon,
+  MomoIcon,
+  PhoneIcon,
+  PinIcon,
+} from "./icons";
 import heroFlyer from "@/public/images/hero-flyer.webp";
 import logoHorizontal from "@/public/brand/logo-horizontal.png";
 import logoStacked from "@/public/brand/logo-stacked.png";
@@ -14,11 +27,15 @@ const generalHref = whatsappHref("Hello Golden Bite! I have a question.");
 export function Announcement() {
   return (
     <aside className="announcement" aria-label="Opening hours and delivery">
-      <span>Open {business.hours.label}</span>
+      <span>
+        <ClockIcon size={15} /> Open {business.hours.label}
+      </span>
       <span className="announcement-dot" aria-hidden="true">
         •
       </span>
-      <span>Pickup & delivery in {business.deliveryArea}</span>
+      <span>
+        <DeliveryIcon size={16} /> Pickup & delivery in {business.deliveryArea}
+      </span>
     </aside>
   );
 }
@@ -57,22 +74,25 @@ export function Hero() {
         </p>
         <div className="hero-actions">
           <a className="button button-primary" href="#menu">
-            Order now <span aria-hidden="true">↓</span>
+            <MealIcon /> Order now <ArrowDownIcon size={18} />
           </a>
           <a className="button button-quiet" href={telHref(mainPhone)}>
-            Call {mainPhone.display}
+            <PhoneIcon /> Call {mainPhone.display}
           </a>
         </div>
         <dl className="hero-facts">
           <div>
+            <ClockIcon size={22} />
             <dt>{business.hours.shortDays}</dt>
             <dd>{business.hours.shortTime}</dd>
           </div>
           <div>
+            <DeliveryIcon size={22} />
             <dt>{business.deliveryArea}</dt>
             <dd>Delivery area</dd>
           </div>
           <div>
+            <MomoIcon size={22} />
             <dt>MoMo or cash</dt>
             <dd>Pay your way</dd>
           </div>
@@ -102,13 +122,13 @@ export function ServiceStrip() {
   return (
     <ul className="service-strip" aria-label="Golden Bite services">
       <li>
-        <span aria-hidden="true">⌖</span> {business.address.street}, {business.address.locality}
+        <PinIcon /> {business.address.street}, {business.address.locality}
       </li>
       <li>
-        <span aria-hidden="true">✓</span> Pickup & delivery
+        <DeliveryIcon /> Pickup & delivery
       </li>
       <li>
-        <span aria-hidden="true">✦</span> Catering for your events
+        <CateringIcon /> Catering for your events
       </li>
     </ul>
   );
@@ -116,15 +136,21 @@ export function ServiceStrip() {
 
 export function HowToOrder() {
   const steps = [
-    ["Pick your meal", "Choose your favourite dish and the portion that suits your appetite."],
-    [
-      "Send your order",
-      "Add your name and location, then send your basket on WhatsApp or call us.",
-    ],
-    [
-      "Enjoy Golden Bite",
-      `Pick up from ${business.address.inSentence} or get it delivered in ${business.deliveryArea}.`,
-    ],
+    {
+      icon: <MealIcon size={26} />,
+      title: "Pick your meal",
+      text: "Choose your favourite dish and the portion that suits your appetite.",
+    },
+    {
+      icon: <ChatIcon size={26} />,
+      title: "Send your order",
+      text: "Add your name and location, then send your basket on WhatsApp or call us.",
+    },
+    {
+      icon: <DeliveryIcon size={26} />,
+      title: "Enjoy Golden Bite",
+      text: `Pick up from ${business.address.inSentence} or get it delivered in ${business.deliveryArea}.`,
+    },
   ];
   return (
     <section className="how-section" id="how-it-works" aria-labelledby="how-title">
@@ -138,9 +164,14 @@ export function HowToOrder() {
         </p>
       </div>
       <ol className="steps">
-        {steps.map(([title, text], i) => (
+        {steps.map(({ icon, title, text }, i) => (
           <li key={title}>
-            <span aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+            <div className="step-head">
+              <span className="step-icon">{icon}</span>
+              <span className="step-number" aria-hidden="true">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+            </div>
             <h3>{title}</h3>
             <p>{text}</p>
           </li>
@@ -158,12 +189,22 @@ export function Payment() {
         <p className="eyebrow">Easy payment</p>
         <h2 id="pay-title">Pay with MoMo or cash.</h2>
         <p>
-          Choose your payment mode when you order: MTN Mobile Money, or cash on delivery or at
-          pickup. We confirm every order by WhatsApp or phone call before you pay.
+          Choose your mode of payment when you order. We confirm every order by WhatsApp or phone
+          call before you pay.
         </p>
+        <ul className="pay-modes">
+          <li>
+            <MomoIcon size={22} /> MTN Mobile Money
+          </li>
+          <li>
+            <CashIcon size={22} /> Cash on delivery or at pickup
+          </li>
+        </ul>
       </div>
       <div className="momo-card">
-        <span>{momo.network}</span>
+        <span>
+          <MomoIcon size={18} /> {momo.network}
+        </span>
         <strong>{momo.number}</strong>
         <p>
           {momo.accountName
@@ -187,9 +228,15 @@ export function Catering() {
           reply on WhatsApp with options and prices.
         </p>
         <ul className="catering-points">
-          <li>Birthdays, weddings, funerals, church and office events</li>
-          <li>Jollof, fried rice, banku & tilapia, salads and food baskets</li>
-          <li>Delivered anywhere in {business.deliveryArea}</li>
+          <li>
+            <CheckIcon size={18} /> Birthdays, weddings, funerals, church and office events
+          </li>
+          <li>
+            <CheckIcon size={18} /> Jollof, fried rice, banku & tilapia, salads and food baskets
+          </li>
+          <li>
+            <CheckIcon size={18} /> Delivered anywhere in {business.deliveryArea}
+          </li>
         </ul>
       </div>
       <div className="catering-form-card">
@@ -208,23 +255,33 @@ export function Footer() {
       </div>
       <div>
         <h2>Visit us</h2>
-        <p>
-          {business.address.street}
-          <br />
-          {business.address.locality}, Ghana
+        <p className="footer-line">
+          <PinIcon size={18} />
+          <span>
+            {business.address.street}
+            <br />
+            {business.address.locality}, Ghana
+          </span>
         </p>
-        <p>
-          {business.hours.longDays}
-          <br />
-          {business.hours.shortTime}
+        <p className="footer-line">
+          <ClockIcon size={18} />
+          <span>
+            {business.hours.longDays}
+            <br />
+            {business.hours.shortTime}
+          </span>
         </p>
       </div>
       <div>
         <h2>Order with us</h2>
-        <a href={telHref(mainPhone)}>{mainPhone.display}</a>
-        <a href={telHref(secondPhone)}>{secondPhone.display}</a>
+        <a href={telHref(mainPhone)}>
+          <PhoneIcon size={18} /> {mainPhone.display}
+        </a>
+        <a href={telHref(secondPhone)}>
+          <PhoneIcon size={18} /> {secondPhone.display}
+        </a>
         <a href={generalHref} target="_blank" rel="noopener noreferrer">
-          WhatsApp Golden Bite
+          <ChatIcon size={18} /> WhatsApp Golden Bite
         </a>
       </div>
     </footer>

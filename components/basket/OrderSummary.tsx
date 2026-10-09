@@ -15,7 +15,7 @@ import {
   type OrderDetails,
   type PaymentMethod,
 } from "@/lib/order";
-import { BagIcon } from "./MobileBasketBar";
+import { BagIcon, CashIcon, ChatIcon, DeliveryIcon, MomoIcon, PickupIcon } from "../icons";
 import { clearBasket, updateBasket, useBasketState } from "./store";
 
 const FULFILMENT: Fulfilment[] = ["Delivery", "Pickup"];
@@ -75,7 +75,7 @@ export function OrderSummary({ titleId }: { titleId?: string }) {
 
       {empty ? (
         <div className="empty-basket">
-          <span aria-hidden="true">✦</span>
+          <BagIcon size={30} />
           <p>Your basket is waiting for something delicious.</p>
         </div>
       ) : (
@@ -120,6 +120,7 @@ export function OrderSummary({ titleId }: { titleId?: string }) {
               onClick={() => setDetails({ fulfilment: option })}
               key={option}
             >
+              {option === "Delivery" ? <DeliveryIcon size={18} /> : <PickupIcon size={18} />}
               {option}
             </button>
           ))}
@@ -182,6 +183,7 @@ export function OrderSummary({ titleId }: { titleId?: string }) {
               onClick={() => setDetails({ payment: option })}
               key={option}
             >
+              {option === "MoMo" ? <MomoIcon size={18} /> : <CashIcon size={18} />}
               {paymentLabel(option)}
             </button>
           ))}
@@ -214,7 +216,7 @@ export function OrderSummary({ titleId }: { titleId?: string }) {
 
       {empty ? (
         <button className="button whatsapp-button" type="button" disabled>
-          Send order on WhatsApp <span aria-hidden="true">↗</span>
+          <ChatIcon /> Send order on WhatsApp
         </button>
       ) : (
         <a
@@ -232,7 +234,7 @@ export function OrderSummary({ titleId }: { titleId?: string }) {
             setSent(true);
           }}
         >
-          Send order on WhatsApp <span aria-hidden="true">↗</span>
+          <ChatIcon /> Send order on WhatsApp
         </a>
       )}
       {!empty && (

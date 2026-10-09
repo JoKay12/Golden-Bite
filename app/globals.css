@@ -104,6 +104,11 @@ img {
   text-transform: uppercase;
   text-align: center;
 }
+.announcement > span:not(.announcement-dot) {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
 .announcement-dot {
   color: rgba(30, 21, 6, 0.65);
 }
@@ -318,6 +323,10 @@ h1 em {
   display: grid;
   gap: 4px;
 }
+.hero-facts .icon {
+  margin-bottom: 4px;
+  color: var(--gold);
+}
 .hero-facts dt {
   color: var(--gold-bright);
   font-size: 0.85rem;
@@ -397,9 +406,8 @@ h1 em {
 .service-strip li:last-child {
   border-right: none;
 }
-.service-strip span {
+.service-strip .icon {
   color: var(--orange);
-  font-size: 1rem;
 }
 
 /* Menu */
@@ -673,9 +681,8 @@ h1 em {
   text-align: center;
   color: #c9bfae;
 }
-.empty-basket span {
+.empty-basket .icon {
   color: var(--gold-bright);
-  font-size: 1.5rem;
 }
 .empty-basket p {
   max-width: 210px;
@@ -753,6 +760,10 @@ h1 em {
   gap: 7px;
 }
 .choice-group button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   min-height: 44px;
   border: 1px solid rgba(255, 250, 243, 0.24);
   border-radius: 5px;
@@ -973,9 +984,23 @@ h1 em {
   padding: 25px;
   background: rgba(255, 250, 243, 0.03);
 }
-.steps span {
-  display: inline-block;
-  margin-bottom: 47px;
+.step-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+.step-icon {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border: 1px solid rgba(244, 196, 87, 0.35);
+  border-radius: 50%;
+  background: rgba(244, 196, 87, 0.1);
+  color: var(--gold-bright);
+}
+.step-number {
   color: var(--gold-bright);
   font-size: 0.8rem;
   font-weight: 900;
@@ -1041,6 +1066,9 @@ h1 em {
   letter-spacing: -0.1em;
 }
 .momo-card span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   color: var(--gold-bright);
   font-size: 0.78rem;
   font-weight: 900;
@@ -1086,8 +1114,8 @@ h1 em {
   font-size: 0.95rem;
   line-height: 1.45;
 }
-.catering-points li::before {
-  content: "✦";
+.catering-points .icon {
+  margin-top: 2px;
   color: var(--gold);
 }
 .catering-form-card {
@@ -1185,12 +1213,31 @@ footer a {
   min-height: 44px;
   margin: 0;
 }
+footer a {
+  gap: 10px;
+}
+footer .icon {
+  color: var(--gold);
+}
+.footer-line {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.footer-line .icon {
+  margin-top: 3px;
+}
 footer a:hover {
   color: var(--gold-bright);
 }
 
 .mobile-basket {
   display: none;
+}
+.mobile-basket-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 /* Tablet and phone: nav becomes a scrolling row, basket bar is always visible */
@@ -1477,5 +1524,34 @@ footer a:hover {
 }
 .clear-basket button:hover,
 .clear-basket.is-sent button {
+  color: var(--gold-bright);
+}
+
+/* Icons sit on the text baseline and never shrink inside flex rows. */
+.icon {
+  flex-shrink: 0;
+}
+.button {
+  gap: 10px;
+}
+.pay-modes {
+  display: grid;
+  gap: 12px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.pay-modes li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #3f3526;
+  font-weight: 800;
+}
+.pay-modes .icon {
+  box-sizing: content-box;
+  padding: 9px;
+  border-radius: 50%;
+  background: #1c170e;
   color: var(--gold-bright);
 }

@@ -12,6 +12,7 @@ import {
   type CateringEnquiry,
   type EventType,
 } from "@/lib/catering";
+import { ChatIcon } from "./icons";
 
 const subscribeNever = () => () => {};
 
@@ -156,7 +157,7 @@ export function CateringForm() {
       </div>
 
       <button className="button button-primary" type="submit">
-        Send enquiry on WhatsApp <span aria-hidden="true">↗</span>
+        <ChatIcon /> Send enquiry on WhatsApp
       </button>
     </form>
   );
