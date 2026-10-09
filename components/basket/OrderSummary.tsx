@@ -15,7 +15,15 @@ import {
   type OrderDetails,
   type PaymentMethod,
 } from "@/lib/order";
-import { BagIcon, CashIcon, ChatIcon, DeliveryIcon, MomoIcon, PickupIcon } from "../icons";
+import {
+  BagIcon,
+  CashIcon,
+  ChatIcon,
+  DeliveryIcon,
+  MealIcon,
+  MomoIcon,
+  PickupIcon,
+} from "../icons";
 import { clearBasket, updateBasket, useBasketState } from "./store";
 
 const FULFILMENT: Fulfilment[] = ["Delivery", "Pickup"];
@@ -75,7 +83,7 @@ export function OrderSummary({ titleId }: { titleId?: string }) {
 
       {empty ? (
         <div className="empty-basket">
-          <BagIcon size={30} />
+          <MealIcon size={30} />
           <p>Your basket is waiting for something delicious.</p>
         </div>
       ) : (

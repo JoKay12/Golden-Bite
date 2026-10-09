@@ -78,6 +78,9 @@ img {
   left: 12px;
   top: -60px;
   z-index: 50;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
   padding: 10px 14px;
   background: var(--gold);
   color: var(--ink);
@@ -133,6 +136,7 @@ img {
 .brand {
   display: flex;
   align-items: center;
+  min-height: 44px;
 }
 .brand img {
   display: block;
@@ -1034,7 +1038,7 @@ h1 em {
   max-width: 530px;
   margin: 0 0 20px;
 }
-.payment-copy > p:last-child,
+.payment-copy > p:not(.eyebrow),
 .catering-copy > p:last-of-type {
   max-width: 500px;
   margin: 0;
@@ -1381,11 +1385,14 @@ footer a:hover {
     flex: 1 1 175px;
   }
   .hero-facts {
-    grid-template-columns: 1fr 1fr;
+    gap: 10px;
     margin-top: 37px;
   }
-  .hero-facts div:last-child {
-    grid-column: span 2;
+  .hero-facts dt {
+    font-size: 0.8rem;
+  }
+  .hero-facts dd {
+    font-size: 0.74rem;
   }
   .hero-frame {
     width: calc(100% - 20px);
@@ -1421,6 +1428,9 @@ footer a:hover {
   }
   .category-tabs {
     margin-right: -20px;
+    padding-right: 40px;
+    /* Fades the last tab out so it is clear the row scrolls sideways. */
+    mask-image: linear-gradient(to right, #000 calc(100% - 44px), transparent);
   }
   .menu-grid {
     grid-template-columns: 1fr;
@@ -1554,4 +1564,12 @@ footer a:hover {
   border-radius: 50%;
   background: #1c170e;
   color: var(--gold-bright);
+}
+
+/* Very narrow phones: keep the three hero facts on one line each so they stay level. */
+@media (max-width: 380px) {
+  .hero-facts dt {
+    font-size: 0.74rem;
+    white-space: nowrap;
+  }
 }

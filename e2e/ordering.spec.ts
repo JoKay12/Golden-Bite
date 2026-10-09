@@ -79,7 +79,7 @@ test("checkout requires details and builds the WhatsApp order", async ({ page })
   expect(pickup).toContain("Fulfilment: Pickup");
   expect(pickup).toContain("Mode of payment: Cash at pickup");
 
-  await dialog.getByRole("button", { name: "Mobile Money (MoMo)" }).click();
+  await dialog.getByRole("button", { name: "MoMo", exact: true }).click();
   const momo = decodeWhatsApp(
     await dialog.getByRole("link", { name: /send order on whatsapp/i }).getAttribute("href"),
   );

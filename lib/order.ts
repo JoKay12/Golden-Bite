@@ -114,7 +114,7 @@ export const formatCedis = (amount: number) => `GH₵${amount.toLocaleString("en
 
 /** Button text for each payment mode. */
 export function paymentLabel(method: PaymentMethod) {
-  return method === "MoMo" ? "Mobile Money (MoMo)" : "Cash";
+  return method === "MoMo" ? "MoMo" : "Cash";
 }
 
 export type DetailErrors = Partial<Record<"name" | "location", string>>;

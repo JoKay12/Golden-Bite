@@ -28,7 +28,10 @@ export function MenuSection() {
             aria-pressed={f.id === activeId}
             aria-controls="menu-panel"
             key={f.id}
-            onClick={() => setActiveId(f.id)}
+            onClick={(event) => {
+              setActiveId(f.id);
+              event.currentTarget.scrollIntoView({ block: "nearest", inline: "nearest" });
+            }}
           >
             {f.name}
           </button>
