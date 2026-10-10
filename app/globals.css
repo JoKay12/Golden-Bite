@@ -1451,21 +1451,60 @@ footer a:hover {
     margin-top: 18px;
   }
   .category-tabs {
-    margin-right: -20px;
     padding-right: 40px;
     /* Fades the last tab out so it is clear the row scrolls sideways. */
     mask-image: linear-gradient(to right, #000 calc(100% - 44px), transparent);
+  }
+  .category-bar {
+    margin-right: -20px;
   }
   .menu-grid {
     grid-template-columns: 1fr;
     gap: 11px;
   }
+  /* Phones: compact dish cards, photo beside the name, so a family fits in far less scrolling. */
   .menu-card {
-    padding: 0 18px 18px;
+    display: grid;
+    grid-template-columns: 104px minmax(0, 1fr);
+    column-gap: 14px;
+    align-items: start;
+    padding: 12px;
   }
   .menu-card-photo {
-    margin: 0 -18px 14px;
-    aspect-ratio: 16 / 10;
+    grid-row: 1 / span 3;
+    margin: 0;
+    aspect-ratio: 1;
+    border-bottom: 0;
+    border-radius: 6px;
+  }
+  .menu-card .card-topline span:first-child {
+    display: none;
+  }
+  .menu-card h3 {
+    margin: 4px 0 4px;
+    font-size: 1.15rem;
+  }
+  .menu-card > p {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0;
+    font-size: 0.84rem;
+  }
+  .price-label,
+  .price-options,
+  .menu-card .add-button {
+    grid-column: 1 / -1;
+  }
+  .menu-card .price-label {
+    margin-top: 12px;
+  }
+  .menu-card .add-button {
+    margin-top: 12px;
+  }
+  .menu-card .price-options + .add-button {
+    margin-top: 0;
   }
   .how-section {
     padding-top: 70px;
@@ -1642,5 +1681,143 @@ footer a:hover {
 @media (max-width: 630px) {
   .reorder-banner .button {
     width: 100%;
+  }
+}
+
+/* "What are you craving?" food-family tiles */
+.craving-title {
+  margin: 0 0 14px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.5rem, 2.4vw, 1.9rem);
+  font-weight: 500;
+}
+.family-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0 0 28px;
+  padding: 0;
+  list-style: none;
+}
+.family-tile {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  min-height: 140px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  padding: 0;
+  background: #17130d;
+  color: var(--cream);
+  text-align: left;
+  cursor: pointer;
+}
+.family-tile img {
+  object-fit: cover;
+  transition: transform 300ms ease;
+}
+.family-tile::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(12, 9, 6, 0.92) 8%,
+    rgba(12, 9, 6, 0.25) 60%,
+    transparent
+  );
+}
+.family-tile:hover img {
+  transform: scale(1.05);
+}
+.family-tile[aria-pressed="true"] {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(216, 154, 24, 0.25);
+}
+.family-tile-text {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 3px;
+  padding: 12px 14px;
+}
+.family-tile-text strong {
+  font-size: 1.02rem;
+  line-height: 1.15;
+}
+.family-tile-text span {
+  color: var(--gold-bright);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+/* Food-family tabs stay pinned under the header while scrolling through the dishes. */
+.category-bar {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 9;
+  margin-bottom: 18px;
+  padding-top: 10px;
+  background: var(--paper);
+  box-shadow: 0 1px 0 var(--line);
+}
+.category-bar .category-tabs {
+  margin-bottom: 0;
+  padding-bottom: 10px;
+}
+#menu-panel {
+  scroll-margin-top: calc(var(--header-h) + 84px);
+}
+
+/* "Next food family" button after the last dish */
+.next-family {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+  border: 1px solid #d3bd92;
+  border-radius: 8px;
+  padding: 14px 18px;
+  background: #22180d;
+  color: var(--cream);
+  text-align: left;
+  cursor: pointer;
+}
+.next-family span {
+  display: grid;
+  gap: 2px;
+}
+.next-family small {
+  color: var(--gold-bright);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.next-family strong {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.35rem;
+  font-weight: 500;
+}
+.next-family .icon {
+  color: var(--gold-bright);
+  transition: transform 160ms ease;
+}
+.next-family:hover .icon {
+  transform: translateX(3px);
+}
+
+@media (max-width: 630px) {
+  .family-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+  .family-tile {
+    min-height: 112px;
   }
 }

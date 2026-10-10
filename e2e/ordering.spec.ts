@@ -104,11 +104,9 @@ test("Escape closes the basket and the basket survives a reload", async ({ page 
 });
 
 test("food families switch the meals shown", async ({ page }) => {
-  await page.getByRole("button", { name: "Banku & Tilapia" }).click();
-  await expect(page.getByRole("button", { name: "Banku & Tilapia" })).toHaveAttribute(
-    "aria-pressed",
-    "true",
-  );
+  const tab = page.locator(".category-tabs").getByRole("button", { name: "Banku & Tilapia" });
+  await tab.click();
+  await expect(tab).toHaveAttribute("aria-pressed", "true");
   await expect(page.locator(".menu-card h3")).toHaveText([
     "Tilapia",
     "Tilapia & Fried Eggs",
@@ -150,4 +148,29 @@ test("a sent order can be reordered later in one tap", async ({ page, context })
   await expect(dialog).toBeVisible();
   await expect(dialog.locator(".basket-total strong")).toHaveText("GH₵80");
   await expect(banner).toHaveCount(0);
+});
+
+test("food-family tiles show the whole menu and lead to each family", async ({ page }) => {
+  const tiles = page.locator(".family-tile");
+  await expect(tiles).toHaveCount(6);
+  await page.getByRole("button", { name: /^See Salads: 2 dishes, from GH₵\d+/ }).click();
+  await expect(page.locator(".menu-card h3").first()).toHaveText("Vegetable Salad with Eggs");
+  await expect(page.locator(".family-showcase h3")).toHaveText("Salads");
+  // The chosen family's first dish is brought into view.
+  await expect(page.locator(".menu-card").first()).toBeInViewport();
+});
+
+test("the tabs stay on screen while scrolling the dishes", async ({ page }) => {
+  await page.locator(".menu-card").nth(3).scrollIntoViewIfNeeded();
+  await expect(page.locator(".category-tabs")).toBeInViewport();
+});
+
+test("after the last dish, a button moves on to the next food family", async ({ page }) => {
+  await page.getByRole("button", { name: /Next food family\s*Plain Rice/ }).click();
+  await expect(page.locator(".family-showcase h3")).toHaveText("Plain Rice");
+  await expect(page.locator(".family-showcase")).toBeInViewport();
+  // The last family loops back to the first.
+  await page.locator(".category-tabs").getByRole("button", { name: "Food Baskets" }).click();
+  await page.getByRole("button", { name: /Back to the start\s*Jollof/ }).click();
+  await expect(page.locator(".family-showcase h3")).toHaveText("Jollof");
 });
