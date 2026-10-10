@@ -10,6 +10,7 @@ type Events = {
   "Order sent": { items: number; total: number; fulfilment: string; payment: string };
   Reorder: { items: number; total: number };
   "Catering enquiry": { eventType: string; guests: number };
+  Tour: { action: "started" | "skipped" | "finished" };
 };
 
 export function trackEvent<K extends keyof Events>(name: K, data: Events[K]) {

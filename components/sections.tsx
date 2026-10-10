@@ -2,6 +2,7 @@ import Image from "next/image";
 import { business, telHref, whatsappHref } from "@/lib/business";
 import { BasketButton } from "./basket/MobileBasketBar";
 import { CateringForm } from "./CateringForm";
+import { TakeTourButton } from "./WelcomeTour";
 import {
   ArrowDownIcon,
   CashIcon,
@@ -190,6 +191,7 @@ export function HowToOrder() {
           </li>
         ))}
       </ol>
+      <TakeTourButton />
     </section>
   );
 }

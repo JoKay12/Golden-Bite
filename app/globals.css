@@ -1821,3 +1821,143 @@ footer a:hover {
     min-height: 112px;
   }
 }
+
+/* Welcome tour */
+.tour-dim {
+  position: fixed;
+  inset: 0;
+  z-index: 25;
+  background: rgba(10, 8, 5, 0.55);
+}
+.tour-target {
+  position: relative;
+  z-index: 26;
+  outline: 3px solid var(--gold-bright);
+  outline-offset: 6px;
+  border-radius: 10px;
+}
+.tour-target {
+  scroll-margin-top: calc(var(--header-h) + 90px);
+}
+.cart-trigger.tour-target {
+  border-radius: 999px;
+}
+.mobile-basket.tour-target {
+  position: fixed;
+  outline-offset: -4px;
+  border-radius: 0;
+}
+.tour-card {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 30;
+  width: min(360px, calc(100vw - 32px));
+  padding: 22px 22px 18px;
+  border: 1px solid rgba(244, 196, 87, 0.45);
+  border-radius: 12px;
+  background: #1c170e;
+  color: var(--cream);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+}
+.tour-card:focus {
+  outline: none;
+}
+.tour-card h2 {
+  margin: 0 0 8px;
+  padding-right: 28px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.45rem;
+  font-weight: 500;
+  line-height: 1.15;
+  color: var(--gold-bright);
+}
+.tour-card > p:not(.tour-progress) {
+  margin: 0;
+  color: #d8cdbb;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+.tour-progress {
+  margin: 0 0 6px;
+  color: var(--gold);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.tour-badge {
+  display: inline-grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  background: rgba(244, 196, 87, 0.14);
+  color: var(--gold-bright);
+}
+.tour-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: transparent;
+  color: #d8cdbb;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.tour-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+.tour-skip {
+  min-height: 44px;
+  border: 0;
+  padding: 0 4px;
+  background: transparent;
+  color: #d8cdbb;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.take-tour {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  margin-top: 22px;
+  border: 1px solid rgba(244, 196, 87, 0.5);
+  border-radius: 999px;
+  padding: 8px 18px;
+  background: transparent;
+  color: var(--gold-bright);
+  font-size: 0.88rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+.take-tour:hover {
+  background: rgba(244, 196, 87, 0.1);
+}
+@media (max-width: 900px) {
+  /* Phones: a bottom sheet that sits just above the basket bar. */
+  .tour-target {
+    scroll-margin-top: 86px;
+  }
+  .tour-card {
+    right: 12px;
+    left: 12px;
+    bottom: 80px;
+    width: auto;
+  }
+}
+/* The header is its own layer, so lift it above the dimmer when its basket button is the target. */
+.site-header:has(.tour-target) {
+  z-index: 27;
+}

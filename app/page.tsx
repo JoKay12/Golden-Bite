@@ -11,6 +11,7 @@ import {
   SiteHeader,
 } from "@/components/sections";
 import { StructuredData } from "@/components/StructuredData";
+import { WelcomeTour } from "@/components/WelcomeTour";
 
 export default function Home() {
   return (
@@ -30,6 +31,7 @@ export default function Home() {
       </main>
       <Footer />
       <StructuredData />
+      <WelcomeTour />
     </BasketProvider>
   );
 }

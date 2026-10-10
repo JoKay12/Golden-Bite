@@ -174,3 +174,28 @@ test("after the last dish, a button moves on to the next food family", async ({ 
   await page.getByRole("button", { name: /Back to the start\s*Jollof/ }).click();
   await expect(page.locator(".family-showcase h3")).toHaveText("Jollof");
 });
+
+test("the welcome tour walks through the three steps and can be replayed", async ({ page }) => {
+  await page.goto("/?tour");
+  const tour = page.getByRole("dialog", { name: "Welcome to Golden Bite!" });
+  await expect(tour).toBeVisible();
+  await tour.getByRole("button", { name: /show me/i }).click();
+  await expect(page.getByRole("dialog", { name: /Pick what you’re craving/ })).toBeVisible();
+  await expect(page.locator(".family-grid")).toHaveClass(/tour-target/);
+  await page.locator(".tour-card").getByRole("button", { name: /^Next/ }).click();
+  await expect(page.locator(".menu-card").first()).toHaveClass(/tour-target/);
+  await page.locator(".tour-card").getByRole("button", { name: /^Next/ }).click();
+  await expect(page.getByRole("dialog", { name: /Send your order on WhatsApp/ })).toBeVisible();
+  await page.getByRole("button", { name: /start ordering/i }).click();
+  await expect(page.locator(".tour-card")).toHaveCount(0);
+  await expect(page.locator(".tour-target")).toHaveCount(0);
+
+  // Seen once: a normal visit does not show it again, but the button replays it.
+  await page.goto("/");
+  await page.waitForTimeout(1500);
+  await expect(page.locator(".tour-card")).toHaveCount(0);
+  await page.getByRole("button", { name: /take the 1-minute tour/i }).click();
+  await expect(page.getByRole("dialog", { name: "Welcome to Golden Bite!" })).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(page.locator(".tour-card")).toHaveCount(0);
+});
