@@ -294,7 +294,7 @@ export function Footer() {
           <PhoneIcon size={18} /> {secondPhone.display}
         </a>
         <a href={generalHref} target="_blank" rel="noopener noreferrer">
-          <WhatsAppIcon size={20} /> WhatsApp Golden Bite
+          <WhatsAppIcon size={18} /> WhatsApp Golden Bite
         </a>
       </div>
     </footer>

@@ -1,6 +1,4 @@
-import Image from "next/image";
 import type { ReactNode, SVGProps } from "react";
-import whatsappLogo from "@/public/brand/whatsapp.png";
 
 /**
  * Golden Bite icon set: one family, drawn on a 24 × 24 grid with a 1.75 rounded stroke, coloured
@@ -31,18 +29,27 @@ function Icon({ size = 20, className, children, ...rest }: IconProps & { childre
 }
 
 /**
- * The official WhatsApp logo (file supplied by the owner, background removed), shown in its own
- * colours on every WhatsApp action. Decorative: the text beside it always says "WhatsApp".
+ * WhatsApp logo in one colour, traced from the official logo the owner supplied so it takes the
+ * site's gold (or the button's text colour) like every other icon. Decorative: the text beside it
+ * always says "WhatsApp".
  */
-export const WhatsAppIcon = ({ size = 20 }: { size?: number }) => (
-  <Image
-    src={whatsappLogo}
-    alt=""
+const WHATSAPP =
+  "M10.30 22.99 C9.25 22.83 8.00 22.43 7.13 22.00 C6.62 21.74 6.86 21.72 5.02 22.20 C3.88 22.49 3.74 22.52 3.41 22.50 C2.86 22.46 2.53 22.32 2.16 21.94 C1.78 21.57 1.63 21.24 1.60 20.71 C1.57 20.35 1.56 20.38 2.06 18.58 L2.34 17.56 L2.05 16.99 C0.14 13.15 0.57 8.62 3.16 5.21 C3.48 4.79 4.66 3.59 5.14 3.21 C6.62 2.03 8.63 1.19 10.56 0.93 C11.41 0.82 13.20 0.86 13.94 1.00 C16.31 1.45 18.19 2.44 19.85 4.10 C20.85 5.11 21.42 5.89 21.98 7.03 C22.73 8.56 23.07 9.94 23.12 11.64 C23.20 14.33 22.38 16.82 20.75 18.88 C20.35 19.38 19.29 20.43 18.78 20.82 C17.39 21.89 15.74 22.61 13.85 22.98 C13.22 23.10 11.03 23.11 10.30 22.99 Z M13.56 21.11 C15.52 20.73 17.19 19.87 18.53 18.53 C22.17 14.89 22.17 9.06 18.53 5.42 C14.89 1.79 8.96 1.84 5.37 5.55 C2.39 8.64 1.90 13.31 4.18 16.92 L4.38 17.24 L4.03 18.52 C3.84 19.22 3.63 19.98 3.57 20.20 C3.51 20.43 3.46 20.62 3.48 20.63 C3.49 20.64 4.17 20.47 5.00 20.25 C7.09 19.70 6.94 19.73 7.28 19.93 C8.26 20.52 9.40 20.93 10.58 21.12 C11.29 21.23 12.93 21.22 13.56 21.11 Z M14.62 17.28 C13.58 17.14 11.86 16.49 10.88 15.86 C9.14 14.74 7.06 12.21 6.55 10.59 C6.17 9.38 6.39 8.24 7.20 7.34 C7.55 6.94 7.74 6.86 8.35 6.86 L8.85 6.86 L9.02 7.05 C9.21 7.26 10.13 9.42 10.13 9.66 C10.13 9.91 9.88 10.30 9.40 10.83 C9.14 11.12 9.15 11.22 9.54 11.80 C10.43 13.13 11.45 13.99 12.84 14.60 C13.07 14.70 13.32 14.78 13.40 14.78 C13.54 14.78 13.80 14.52 14.41 13.75 C14.85 13.19 14.78 13.18 16.56 14.06 C17.46 14.50 17.58 14.58 17.64 14.77 C17.68 14.92 17.54 15.70 17.42 15.99 C17.23 16.43 16.37 17.07 15.77 17.22 C15.48 17.29 14.94 17.32 14.62 17.28 Z";
+
+export const WhatsAppIcon = ({ size = 20, className, ...rest }: IconProps) => (
+  <svg
     aria-hidden="true"
+    focusable="false"
     width={size}
     height={size}
-    className="icon icon-whatsapp"
-  />
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    fillRule="evenodd"
+    className={className ? `icon ${className}` : "icon"}
+    {...rest}
+  >
+    <path d={WHATSAPP} />
+  </svg>
 );
 
 /** Generic chat bubble. */
