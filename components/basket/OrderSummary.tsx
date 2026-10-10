@@ -1,10 +1,13 @@
 "use client";
 
 import { useId, useState, useSyncExternalStore } from "react";
+import { trackEvent } from "@/lib/analytics";
 import { business, whatsappHref } from "@/lib/business";
 import {
   buildOrderMessage,
+  cartCount,
   cartTotal,
+  describeOrder,
   formatCedis,
   isOpen,
   nextOpening,
@@ -23,8 +26,9 @@ import {
   MealIcon,
   MomoIcon,
   PickupIcon,
+  ReorderIcon,
 } from "../icons";
-import { clearBasket, updateBasket, useBasketState } from "./store";
+import { clearBasket, reorderLast, saveLastOrder, updateBasket, useBasketState } from "./store";
 
 const FULFILMENT: Fulfilment[] = ["Delivery", "Pickup"];
 const PAYMENT: PaymentMethod[] = ["MoMo", "Cash"];
@@ -42,7 +46,7 @@ function useNowMinute(): number | null {
 }
 
 export function OrderSummary({ titleId }: { titleId?: string }) {
-  const { cart, details } = useBasketState();
+  const { cart, details, lastOrder } = useBasketState();
   const [showErrors, setShowErrors] = useState(false);
   const [sent, setSent] = useState(false);
   const uid = useId();
@@ -85,6 +89,27 @@ export function OrderSummary({ titleId }: { titleId?: string }) {
         <div className="empty-basket">
           <MealIcon size={30} />
           <p>Your basket is waiting for something delicious.</p>
+          {lastOrder.length > 0 && (
+            <div className="reorder">
+              <p>
+                Last time: <strong>{describeOrder(lastOrder)}</strong> ·{" "}
+                {formatCedis(cartTotal(lastOrder))}
+              </p>
+              <button
+                type="button"
+                className="button button-primary"
+                onClick={() => {
+                  reorderLast();
+                  trackEvent("Reorder", {
+                    items: cartCount(lastOrder),
+                    total: cartTotal(lastOrder),
+                  });
+                }}
+              >
+                <ReorderIcon /> Reorder my last order
+              </button>
+            </div>
+          )}
         </div>
       ) : (
         <ul className="cart-items">
@@ -240,6 +265,13 @@ export function OrderSummary({ titleId }: { titleId?: string }) {
               return;
             }
             setSent(true);
+            saveLastOrder(cart);
+            trackEvent("Order sent", {
+              items: cartCount(cart),
+              total,
+              fulfilment: details.fulfilment,
+              payment: details.payment,
+            });
           }}
         >
           <ChatIcon /> Send order on WhatsApp

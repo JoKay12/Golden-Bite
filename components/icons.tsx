@@ -135,6 +135,24 @@ export const ArrowDownIcon = (p: IconProps) => (
   </Icon>
 );
 
+/** Clipboard with steps, for "How to order". */
+export const StepsIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <rect x="5" y="4" width="14" height="17" rx="2" />
+    <path d="M9 4V3h6v1" />
+    <path d="M8.5 10h.01M8.5 14h.01M8.5 18h.01" strokeWidth={2.5} />
+    <path d="M11.5 10H16M11.5 14H16M11.5 18H14" />
+  </Icon>
+);
+
+/** Circular arrow, for reordering. */
+export const ReorderIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M20 11a8 8 0 1 0-2.3 5.7" />
+    <path d="M20 4.5V11h-6.5" />
+  </Icon>
+);
+
 /** Shown when the basket is empty. */
 export const BagIcon = (p: IconProps) => (
   <Icon {...p}>

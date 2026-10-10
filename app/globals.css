@@ -152,6 +152,7 @@ nav {
 nav a {
   display: inline-flex;
   align-items: center;
+  gap: 7px;
   min-height: 44px;
   padding: 0 6px;
   color: var(--cream);
@@ -159,8 +160,15 @@ nav a {
   font-weight: 800;
   letter-spacing: 0.025em;
 }
+nav a .icon {
+  color: var(--gold);
+  transition: transform 160ms ease;
+}
 nav a:hover {
   color: var(--gold-bright);
+}
+nav a:hover .icon {
+  transform: translateY(-1px);
 }
 
 .cart-trigger {
@@ -1265,17 +1273,33 @@ footer a:hover {
   .brand img {
     width: 165px;
   }
+  /* Tablets and phones: four even tabs, icon above the label, like an app tab bar. */
   nav {
     order: 3;
     width: 100%;
-    overflow-x: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 4px;
-    margin: 0 -6px;
-    scrollbar-width: none;
+    padding: 4px 0 8px;
   }
   nav a {
-    flex: 0 0 auto;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    min-height: 54px;
+    padding: 4px 2px;
+    border-radius: 8px;
+    font-size: 0.74rem;
+    letter-spacing: 0.01em;
     white-space: nowrap;
+    text-align: center;
+  }
+  nav a .icon {
+    width: 22px;
+    height: 22px;
+  }
+  nav a:active {
+    background: rgba(244, 196, 87, 0.12);
   }
   .hero {
     grid-template-columns: 1fr;
@@ -1571,5 +1595,52 @@ footer a:hover {
   .hero-facts dt {
     font-size: 0.74rem;
     white-space: nowrap;
+  }
+}
+
+/* Reorder my last order */
+.reorder {
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 250, 243, 0.12);
+}
+.reorder p {
+  max-width: 260px;
+  margin: 0;
+  color: #d8cdbb;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+.reorder strong {
+  color: var(--cream);
+}
+.reorder-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  margin: 0 0 20px;
+  padding: 14px 18px;
+  border: 1px solid #e3cf9f;
+  border-left: 4px solid var(--gold);
+  border-radius: 8px;
+  background: var(--gold-pale);
+}
+.reorder-banner p {
+  margin: 0;
+  color: #3f3526;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+.reorder-banner .button {
+  flex: 0 0 auto;
+}
+@media (max-width: 630px) {
+  .reorder-banner .button {
+    width: 100%;
   }
 }

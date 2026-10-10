@@ -3,9 +3,38 @@
 import Image from "next/image";
 import { useState } from "react";
 import { menu, type MenuItem, type Photo } from "@/lib/menu";
-import { formatCedis } from "@/lib/order";
+import { trackEvent } from "@/lib/analytics";
+import { cartCount, cartTotal, describeOrder, formatCedis } from "@/lib/order";
+import { ReorderIcon } from "../icons";
+import { reorderLast, useBasketState } from "../basket/store";
 import { useBasketUI } from "../basket/BasketProvider";
 import { OrderSummary } from "../basket/OrderSummary";
+
+/** "Welcome back" prompt above the menu when the basket is empty and an order was sent before. */
+function ReorderBanner() {
+  const { cart, lastOrder } = useBasketState();
+  const { openBasket } = useBasketUI();
+  if (cart.length > 0 || lastOrder.length === 0) return null;
+  return (
+    <div className="reorder-banner">
+      <p>
+        <strong>Welcome back!</strong> Your last order: {describeOrder(lastOrder)} ·{" "}
+        {formatCedis(cartTotal(lastOrder))}
+      </p>
+      <button
+        type="button"
+        className="button button-primary"
+        onClick={() => {
+          reorderLast();
+          trackEvent("Reorder", { items: cartCount(lastOrder), total: cartTotal(lastOrder) });
+          openBasket();
+        }}
+      >
+        <ReorderIcon /> Reorder my last order
+      </button>
+    </div>
+  );
+}
 
 export function MenuSection() {
   const [activeId, setActiveId] = useState(menu[0].id);
@@ -20,6 +49,8 @@ export function MenuSection() {
         </div>
         <p>Pick a food family, choose your meal and portion, then add it to your basket.</p>
       </div>
+
+      <ReorderBanner />
 
       <div className="category-tabs" aria-label="Food families">
         {menu.map((f) => (

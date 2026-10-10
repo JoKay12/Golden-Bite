@@ -105,6 +105,14 @@ export function sanitizeDetails(raw: unknown): OrderDetails {
   };
 }
 
+/** Short label for a saved order: "Jollof Rice & Chicken + 2 more". */
+export function describeOrder(cart: CartLine[]): string {
+  if (cart.length === 0) return "";
+  const [first, ...rest] = cart;
+  const name = first.qty > 1 ? `${first.qty} × ${first.name}` : first.name;
+  return rest.length ? `${name} + ${rest.length} more` : name;
+}
+
 export const cartCount = (cart: CartLine[]) => cart.reduce((sum, line) => sum + line.qty, 0);
 
 export const cartTotal = (cart: CartLine[]) =>

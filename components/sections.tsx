@@ -14,6 +14,7 @@ import {
   MomoIcon,
   PhoneIcon,
   PinIcon,
+  StepsIcon,
 } from "./icons";
 import heroFlyer from "@/public/images/hero-flyer.webp";
 import logoHorizontal from "@/public/brand/logo-horizontal.png";
@@ -48,10 +49,22 @@ export function SiteHeader() {
           <Image src={logoHorizontal} alt="Golden Bite home" priority sizes="200px" />
         </a>
         <nav aria-label="Main navigation">
-          <a href="#menu">Menu</a>
-          <a href="#how-it-works">How to order</a>
-          <a href="#catering">Catering</a>
-          <a href="#contact">Contact</a>
+          <a href="#menu">
+            <MealIcon size={18} />
+            <span>Menu</span>
+          </a>
+          <a href="#how-it-works">
+            <StepsIcon size={18} />
+            <span>How to order</span>
+          </a>
+          <a href="#catering">
+            <CateringIcon size={18} />
+            <span>Catering</span>
+          </a>
+          <a href="#contact">
+            <PhoneIcon size={18} />
+            <span>Contact</span>
+          </a>
         </nav>
         <BasketButton />
       </div>

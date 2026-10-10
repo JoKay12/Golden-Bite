@@ -125,3 +125,29 @@ test("desktop shows the basket sidebar; phones show the bottom bar", async ({ pa
     await expect(page.getByRole("complementary", { name: "Your order" })).toBeHidden();
   }
 });
+
+test("a sent order can be reordered later in one tap", async ({ page, context }) => {
+  // Opening WhatsApp would leave the page, so swallow the new tab.
+  context.on("page", (p) => p.close());
+  await page.getByRole("button", { name: /^Add GH₵40: Jollof Rice & Chicken/ }).click();
+  await page.getByRole("button", { name: /^Add GH₵40: Jollof Rice & Chicken/ }).click();
+  let dialog = await openBasket(page);
+  await dialog.getByLabel("Your name").fill("Ama");
+  await dialog.getByRole("button", { name: "Pickup" }).click();
+  await dialog.getByRole("link", { name: /send order on whatsapp/i }).click();
+  await dialog.getByRole("button", { name: /clear basket/i }).click();
+
+  // The empty basket offers the last order.
+  await expect(dialog.getByText("2 × Jollof Rice & Chicken")).toBeVisible();
+  await page.keyboard.press("Escape");
+  await page.reload();
+
+  // After a reload the menu greets the customer with it too.
+  const banner = page.locator(".reorder-banner");
+  await expect(banner).toContainText("2 × Jollof Rice & Chicken · GH₵80");
+  await banner.getByRole("button", { name: /reorder my last order/i }).click();
+  dialog = page.getByRole("dialog", { name: "Your basket" });
+  await expect(dialog).toBeVisible();
+  await expect(dialog.locator(".basket-total strong")).toHaveText("GH₵80");
+  await expect(banner).toHaveCount(0);
+});

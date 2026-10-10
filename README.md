@@ -132,9 +132,32 @@ The interface uses Golden Bite's black-and-gold identity, with warm food imagery
 - [x] Add pickup and delivery checkout details.
 - [x] Add Mobile Money payment instructions for pre-delivery and pay-on-delivery orders.
 - [x] Add catering enquiries via WhatsApp.
-- [ ] Select the launch domain, hosting provider (Vercel recommended) and push to GitHub.
+- [x] Hosting: Vercel (imported from GitHub; every push to `main` redeploys).
+- [ ] Select the launch domain and add it in Vercel → Settings → Domains.
 - [ ] Publish and link the website to the Golden Bite Google Business Profile after verification.
 - [x] Catering enquiry form (date, guests, budget).
 - [ ] Database-backed menu with an admin page (edit prices, mark items sold out).
 - [ ] Order-management dashboard and online MoMo payments.
 - [ ] Optional customer accounts after guest ordering is established.
+
+## Hosting on Vercel
+
+1. vercel.com → **Add New… → Project** → import the GitHub repository. Framework is detected as Next.js; keep the default build settings.
+2. **Environment variables:** `NEXT_PUBLIC_SITE_URL` = the live address (e.g. `https://golden-bite.vercel.app`, later the custom domain).
+3. **Deploy.** Every push to `main` then deploys automatically, and pull requests get preview links.
+4. **Analytics → Enable** in the project to switch on visitor stats.
+
+The Hobby (free) plan is for non-commercial use only, so a restaurant site should run on Pro.
+
+## Visitor stats
+
+Vercel Web Analytics (cookie-free, no consent banner needed) is loaded only when the site runs on Vercel. It shows visitors, page views, referrers, countries and devices. These events are also recorded (Pro plan) in Analytics → Events, with no personal details:
+
+| Event            | Data                                   |
+| ---------------- | -------------------------------------- |
+| Add to basket    | dish, price                            |
+| Order sent       | items, total, fulfilment, payment mode |
+| Reorder          | items, total                           |
+| Catering enquiry | event type, guests                     |
+
+"Order sent" counts taps on **Send order on WhatsApp**; whether the customer then pressed send in WhatsApp is only visible in WhatsApp.

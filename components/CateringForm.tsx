@@ -12,6 +12,7 @@ import {
   type CateringEnquiry,
   type EventType,
 } from "@/lib/catering";
+import { trackEvent } from "@/lib/analytics";
 import { ChatIcon } from "./icons";
 
 const subscribeNever = () => () => {};
@@ -52,6 +53,7 @@ export function CateringForm() {
       document.getElementById(id(first))?.focus();
       return;
     }
+    trackEvent("Catering enquiry", { eventType: form.eventType, guests: Number(form.guests) });
     window.open(whatsappHref(buildCateringMessage(form)), "_blank", "noopener,noreferrer");
   }
 

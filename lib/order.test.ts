@@ -7,6 +7,7 @@ import {
   emptyDetails,
   isOpen,
   nextOpening,
+  describeOrder,
   sanitizeCart,
   sanitizeDetails,
   setQty,
@@ -35,6 +36,18 @@ describe("basket", () => {
     const cart = addToCart([], banku, 5);
     expect(setQty(cart, cart[0].key, 0)).toEqual([]);
     expect(setQty(cart, cart[0].key, 3)[0].qty).toBe(3);
+  });
+});
+
+describe("saved order label", () => {
+  it("names the first dish and counts the rest", () => {
+    const one = addToCart([], jollof, 40);
+    expect(describeOrder([])).toBe("");
+    expect(describeOrder(one)).toBe("Jollof Rice & Chicken");
+    expect(describeOrder(addToCart(one, jollof, 40))).toBe("2 × Jollof Rice & Chicken");
+    expect(describeOrder(addToCart(addToCart(one, banku, 5), jollof, 60))).toBe(
+      "Jollof Rice & Chicken + 2 more",
+    );
   });
 });
 

@@ -17,10 +17,15 @@ import {
  * empty basket; the saved basket appears right after hydration).
  */
 
-type BasketState = { cart: CartLine[]; details: OrderDetails };
+type BasketState = {
+  cart: CartLine[];
+  details: OrderDetails;
+  /** The last basket sent to WhatsApp from this device, for "Reorder my last order". */
+  lastOrder: CartLine[];
+};
 
 const STORAGE_KEY = "golden-bite:basket:v1";
-const SERVER_STATE: BasketState = { cart: [], details: emptyDetails };
+const SERVER_STATE: BasketState = { cart: [], details: emptyDetails, lastOrder: [] };
 
 let state: BasketState | null = null;
 const listeners = new Set<() => void>();
@@ -29,9 +34,14 @@ function load(): BasketState {
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) return SERVER_STATE;
-    const parsed = JSON.parse(raw) as { cart?: unknown; details?: unknown };
-    // Never trust storage: rebuild from the official menu (see sanitizeCart).
-    return { cart: sanitizeCart(parsed.cart, allItems), details: sanitizeDetails(parsed.details) };
+    const parsed = JSON.parse(raw) as { cart?: unknown; details?: unknown; lastOrder?: unknown };
+    // Never trust storage: rebuild from the official menu (see sanitizeCart). A saved order whose
+    // dish or price has since changed simply drops that line.
+    return {
+      cart: sanitizeCart(parsed.cart, allItems),
+      details: sanitizeDetails(parsed.details),
+      lastOrder: sanitizeCart(parsed.lastOrder, allItems),
+    };
   } catch {
     return SERVER_STATE;
   }
@@ -49,7 +59,17 @@ function subscribe(listener: () => void) {
 
 /** Empties the basket and forgets the customer's details on this device. */
 export function clearBasket() {
-  updateBasket(() => ({ cart: [], details: emptyDetails }));
+  updateBasket((s) => ({ ...s, cart: [], details: emptyDetails }));
+}
+
+/** Remembers the order just sent so it can be reordered next time. */
+export function saveLastOrder(cart: CartLine[]) {
+  updateBasket((s) => ({ ...s, lastOrder: cart }));
+}
+
+/** Puts the last sent order back in the basket (prices are always today's menu prices). */
+export function reorderLast() {
+  updateBasket((s) => ({ ...s, cart: s.lastOrder }));
 }
 
 export function updateBasket(update: (current: BasketState) => BasketState) {

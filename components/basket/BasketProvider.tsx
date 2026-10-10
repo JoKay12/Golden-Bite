@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 import { addToCart } from "@/lib/order";
 import { BasketDrawer } from "./BasketDrawer";
 import { MobileBasketBar } from "./MobileBasketBar";
@@ -31,6 +32,7 @@ export function BasketProvider({ children }: { children: React.ReactNode }) {
   const add = useCallback((item: { id: string; name: string }, price: number) => {
     updateBasket((s) => ({ ...s, cart: addToCart(s.cart, item, price) }));
     setToast({ id: Date.now(), text: `Added ${item.name} · GH₵${price}` });
+    trackEvent("Add to basket", { dish: item.name, price });
   }, []);
 
   useEffect(() => {

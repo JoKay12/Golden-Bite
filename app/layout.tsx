@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { business } from "@/lib/business";
 import "./globals.css";
@@ -28,7 +29,11 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en-GH">
-      <body>{children}</body>
+      <body>
+        {children}
+        {/* Visitor stats: cookie-free, only switched on when the site runs on Vercel. */}
+        {process.env.VERCEL ? <Analytics /> : null}
+      </body>
     </html>
   );
 }
