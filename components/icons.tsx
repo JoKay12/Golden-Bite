@@ -1,4 +1,6 @@
+import Image from "next/image";
 import type { ReactNode, SVGProps } from "react";
+import whatsappLogo from "@/public/brand/whatsapp.png";
 
 /**
  * Golden Bite icon set: one family, drawn on a 24 × 24 grid with a 1.75 rounded stroke, coloured
@@ -28,7 +30,22 @@ function Icon({ size = 20, className, children, ...rest }: IconProps & { childre
   );
 }
 
-/** Chat bubble, used for every "send on WhatsApp" action. */
+/**
+ * The official WhatsApp logo (file supplied by the owner, background removed), shown in its own
+ * colours on every WhatsApp action. Decorative: the text beside it always says "WhatsApp".
+ */
+export const WhatsAppIcon = ({ size = 20 }: { size?: number }) => (
+  <Image
+    src={whatsappLogo}
+    alt=""
+    aria-hidden="true"
+    width={size}
+    height={size}
+    className="icon icon-whatsapp"
+  />
+);
+
+/** Generic chat bubble. */
 export const ChatIcon = (p: IconProps) => (
   <Icon {...p}>
     <path d="M5 4.5h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-8.5L6 21v-3.5H5a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2Z" />

@@ -21,7 +21,7 @@ import {
 import {
   BagIcon,
   CashIcon,
-  ChatIcon,
+  WhatsAppIcon,
   DeliveryIcon,
   MealIcon,
   MomoIcon,
@@ -249,7 +249,7 @@ export function OrderSummary({ titleId }: { titleId?: string }) {
 
       {empty ? (
         <button className="button whatsapp-button" type="button" disabled>
-          <ChatIcon /> Send order on WhatsApp
+          <WhatsAppIcon size={22} /> Send order on WhatsApp
         </button>
       ) : (
         <a
@@ -274,7 +274,7 @@ export function OrderSummary({ titleId }: { titleId?: string }) {
             });
           }}
         >
-          <ChatIcon /> Send order on WhatsApp
+          <WhatsAppIcon size={22} /> Send order on WhatsApp
         </a>
       )}
       {!empty && (

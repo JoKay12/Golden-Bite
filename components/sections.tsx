@@ -6,7 +6,7 @@ import {
   ArrowDownIcon,
   CashIcon,
   CateringIcon,
-  ChatIcon,
+  WhatsAppIcon,
   CheckIcon,
   ClockIcon,
   DeliveryIcon,
@@ -155,7 +155,7 @@ export function HowToOrder() {
       text: "Choose your favourite dish and the portion that suits your appetite.",
     },
     {
-      icon: <ChatIcon size={26} />,
+      icon: <WhatsAppIcon size={28} />,
       title: "Send your order",
       text: "Add your name and location, then send your basket on WhatsApp or call us.",
     },
@@ -294,7 +294,7 @@ export function Footer() {
           <PhoneIcon size={18} /> {secondPhone.display}
         </a>
         <a href={generalHref} target="_blank" rel="noopener noreferrer">
-          <ChatIcon size={18} /> WhatsApp Golden Bite
+          <WhatsAppIcon size={20} /> WhatsApp Golden Bite
         </a>
       </div>
     </footer>
